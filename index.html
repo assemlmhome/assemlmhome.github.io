@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly."
+      name="description"
+    />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+      AssemLM | Spatial Reasoning Multimodal Large Language Models for Robotic
+      Assembly
+    </title>
+    <meta
+      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly"
+      property="og:title"
+    />
+    <meta
+      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly."
+      property="og:description"
+    />
+    <meta content="website" property="og:type" />
+    <meta content="media/preview-card-1080p.jpg" property="og:image" />
+    <meta content="1920" property="og:image:width" />
+    <meta content="1080" property="og:image:height" />
+    <meta content="image/jpeg" property="og:image:type" />
+    <meta content="AssemLM project preview card" property="og:image:alt" />
+    <meta content="media/preview-card-180p.jpg" property="og:image" />
+    <meta content="320" property="og:image:width" />
+    <meta content="180" property="og:image:height" />
+    <meta content="image/jpeg" property="og:image:type" />
+    <meta content="AssemLM project preview card" property="og:image:alt" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta
+      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly"
+      name="twitter:title"
+    />
+
+    <meta
+      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly."
+      name="twitter:description"
+    />
+    <meta content="media/preview-card-1080p.jpg" name="twitter:image" />
+    <meta content="AssemLM project preview card" name="twitter:image:alt" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|  Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
+    <link href="./static/css/bulma.min.css" rel="stylesheet" />
+    <link href="./static/css/bulma-carousel.min.css" rel="stylesheet" />
+    <link href="./static/css/bulma-slider.min.css" rel="stylesheet" />
+    <link href="./static/css/fontawesome.all.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="./static/css/index.css" rel="stylesheet" />
+    <link href="./static/source_serif_4.css" rel="stylesheet" />
+    <link href="./static/source_sans_3.css" rel="stylesheet" />
+    <link href="./static/academicons.min.css" rel="stylesheet" />
+    <link href="./static/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="./static/fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="./static/fontawesome/css/light.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer="" src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+  </head>
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://openhumanoidgen.github.io/">
+            HumanoidGen
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-fullhd">
+        <div class="columns is-centered">
+          <div class="column is-10 has-text-centered">
+            <h1 class="title is-1 publication-title">
+              AssemLM: Spatial Reasoning Multimodal Large Language Models for
+              Robotic Assembly
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"
+                ><a
+                  href="https://scholar.google.com/citations?user=dlbY-nkAAAAJ&hl=zh-CN"
+                  rel="noopener"
+                  target="_blank"
+                  >Zhi Jing</a
+                ><sup>1,2</sup>,</span
+              >
+              <span class="author-block"
+                ><a
+                  href="https://scholar.google.com/citations?user=L3_Wl_0AAAAJ&hl=zh-CN"
+                  rel="noopener"
+                  target="_blank"
+                  >Jinbin Qiao</a
+                ><sup>2,3</sup>,</span
+              >
+              <span class="author-block"
+                ><a
+                  href="https://scholar.google.com/citations?user=QXCaKP4AAAAJ&hl=zh-CN"
+                  rel="noopener"
+                  target="_blank"
+                  >Ouyang Lu</a
+                ><sup>2,4</sup>,</span
+              >
+              <span class="author-block"
+                ><a
+                  href="https://scholar.google.com/citations?user=AA4WipQAAAAJ&hl=en"
+                  rel="noopener"
+                  target="_blank"
+                  >Jicong Ao</a
+                ><sup>2</sup>,</span
+              >
+              <span class="author-block"
+                ><a
+                  href="https://www.cityu.edu.hk/stfprofile/shuanqiu.htm"
+                  rel="noopener"
+                  target="_blank"
+                  >Shuang Qiu</a
+                ><sup>5</sup>,</span
+              >
+              <span class="author-block"
+                ><a
+                  href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en"
+                  rel="noopener"
+                  target="_blank"
+                  >Yu-Gang Jiang</a
+                ><sup>1,*</sup>,</span
+              >
+              <span class="author-block"
+                ><a
+                  href="https://baichenjia.github.io/"
+                  rel="noopener"
+                  target="_blank"
+                  >Chenjia Bai</a
+                ><sup>2,*</sup></span
+              >
+            </div>
+            <div class="is-size-5 affiliation">
+              <sup>1</sup>Fudan University<sup>†</sup>, <sup>2</sup>Institute of
+              Artificial Intelligence (TeleAI), China Telecom<sup>†</sup>,
+              <br />
+              <sup>3</sup>Tianjin University, <sup>4</sup>Northwestern
+              Polytechnical University,
+
+              <sup>5</sup>City University of Hong Kong
+            </div>
+            <!-- <span class="author-block"><sup>†</sup>Equally leading organizations&nbsp</span> -->
+            <div class="affiliation-note">
+              <sup>*</sup> Equal advising &nbsp;|&nbsp; <sup>†</sup> Equally
+              leading organizations
+            </div>
+            <div class="button-container">
+              <a class="button" href="" rel="noopener" target="_blank"
+                ><i class="fa-light fa-file"></i>&nbsp;PDF (Coming Soon)</a
+              >
+              <a class="button" href="" rel="noopener" target="_blank"
+                ><i class="ai ai-arxiv"></i>&nbsp;arXiv (Coming Soon)</a
+              >
+              <a class="button" href="" rel="noopener" target="_blank"
+                ><i class="fa-light fa-film"></i>&nbsp;Video (Coming Soon)</a
+              >
+              <a class="button" href="" rel="noopener" target="_blank"
+                ><i class="fa-light fa-code"></i>&nbsp;Code (Coming Soon)</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="abstract">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-left">
+        <div class="column">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+Spatial reasoning is a fundamental capability for embodied intelligence, especially for fine-grained manipulation tasks such as robotic assembly. While recent vision-language models (VLMs) exhibit preliminary spatial awareness, they largely rely on coarse 2D perception and lack the ability to perform accurate reasoning over 3D geometry, which is crucial for precise assembly operations. To address this limitation, we propose AssemLM, a spatial multimodal large language model tailored for robotic assembly. AssemLM integrates assembly manuals, point clouds, and textual instructions to reason about and predict task-critical 6D assembly poses, enabling explicit geometric understanding throughout the assembly process. To effectively bridge raw 3D perception and high-level reasoning, we adopt a specialized point cloud encoder to capture fine-grained geometric and rotational features, which are then integrated into the multimodal language model to support accurate 3D spatial reasoning for assembly tasks. In addition, we construct AssemBench, a large-scale dataset and benchmark for assembly-oriented spatial reasoning, comprising over 900K multimodal samples with precise 6D pose annotations. AssemBench extends spatial reasoning evaluation beyond 2D and grounding tasks into full 3D geometric inference, filling a critical gap in existing embodied AI benchmarks. Extensive experiments demonstrate that AssemLM achieves state-of-the-art performance in 6D pose reasoning across diverse assembly scenarios. Furthermore, real-robot evaluations show that our model effectively supports long-horizon, fine-grained assembly execution, validating its practical applicability in real-world robotic systems.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <p>
+            Website template borrowed from <a href="https://rekep-robot.github.io/">ReKep</a>, <a href="https://nerfies.github.io">Nerfies</a>,
+            <a href="https://dex-cap.github.io">DexCap</a>,
+            and <a href="https://transic-robot.github.io">TRANSIC</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</html>
