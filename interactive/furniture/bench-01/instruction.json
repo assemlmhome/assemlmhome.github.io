@@ -1,0 +1,19 @@
+{
+    "bench_1000": [
+        {
+            "step": 1,
+            "precise_instruction": "Attach the long support bar to the center crossbar between the side frames.",
+            "vague_instruction": "Assemble the bench object."
+        },
+        {
+            "step": 2,
+            "precise_instruction": "Attach the leg frame to the free end of the long side rail.",
+            "vague_instruction": "Assemble the bench object."
+        },
+        {
+            "step": 3,
+            "precise_instruction": "Attach the slatted seat panel onto the top of the bench frame.",
+            "vague_instruction": "Assemble the bench object."
+        }
+    ]
+}

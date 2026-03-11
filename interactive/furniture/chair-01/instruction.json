@@ -1,0 +1,39 @@
+{
+    "chair_1012": [
+        {
+            "step": 1,
+            "precise_instruction": "Attach the lower side rail between the front leg and the rear support.",
+            "vague_instruction": "Assemble the chair object."
+        },
+        {
+            "step": 2,
+            "precise_instruction": "Attach the second side frame to the ends of the horizontal support rails.",
+            "vague_instruction": "Assemble the chair object."
+        },
+        {
+            "step": 3,
+            "precise_instruction": "Attach the upper crossbar between the two inner side supports.",
+            "vague_instruction": "Assemble the chair object."
+        },
+        {
+            "step": 4,
+            "precise_instruction": "Attach the seat panel across the top side rails.",
+            "vague_instruction": "Assemble the chair object."
+        },
+        {
+            "step": 5,
+            "precise_instruction": "Attach the top rail between the two backrest posts.",
+            "vague_instruction": "Assemble the chair object."
+        },
+        {
+            "step": 6,
+            "precise_instruction": "Attach the top crossbar between the two upper side frames.",
+            "vague_instruction": "Assemble the chair object."
+        },
+        {
+            "step": 7,
+            "precise_instruction": "Attach the top panel onto the upper frame.",
+            "vague_instruction": "Assemble the chair object."
+        }
+    ]
+}

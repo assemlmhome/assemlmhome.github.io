@@ -1,0 +1,29 @@
+{
+    "bench_1001": [
+        {
+            "step": 1,
+            "precise_instruction": "Attach the long rail to the top of the side frame.",
+            "vague_instruction": "Assemble the bench object."
+        },
+        {
+            "step": 2,
+            "precise_instruction": "Attach the second leg frame to the free end of the side rail.",
+            "vague_instruction": "Assemble the bench object."
+        },
+        {
+            "step": 3,
+            "precise_instruction": "Attach the second side rail between the two end frames.",
+            "vague_instruction": "Assemble the bench object."
+        },
+        {
+            "step": 4,
+            "precise_instruction": "Attach the slatted seat frame between the two side rails.",
+            "vague_instruction": "Assemble the bench object."
+        },
+        {
+            "step": 5,
+            "precise_instruction": "Attach the side backrest panel onto the right side of the seat frame between the front and rear supports.",
+            "vague_instruction": "Assemble the bench object."
+        }
+    ]
+}

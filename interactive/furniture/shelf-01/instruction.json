@@ -1,0 +1,94 @@
+{
+    "shelf_1080": [
+        {
+            "step": 1,
+            "precise_instruction": "Attach the short support bar to the side of the vertical panel.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 2,
+            "precise_instruction": "Attach the second side panel to the exposed end of the lower crossbar.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 3,
+            "precise_instruction": "Attach the triangular side support to the right side of the frame.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 4,
+            "precise_instruction": "Attach the right side support to the outer edge of the shelf panel.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 5,
+            "precise_instruction": "Attach the upright side support to the right side of the base frame.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 6,
+            "precise_instruction": "Attach the lower shelf panel between the two side frames.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 7,
+            "precise_instruction": "Attach the upper side panel between the left front post and the rear post.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 8,
+            "precise_instruction": "Attach the top panel across the upper side supports.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 9,
+            "precise_instruction": "Attach the tall upright panel to the back right side of the shelf frame.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 10,
+            "precise_instruction": "Attach the second tall upright to the back corner of the shelf frame.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 11,
+            "precise_instruction": "Attach the long side upright to the left side of the frame at the front corner.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 12,
+            "precise_instruction": "Attach the inner vertical support to the left side of the frame beside the shelf.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 13,
+            "precise_instruction": "Insert the upper shelf panel between the side frames above the middle shelf.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 14,
+            "precise_instruction": "Insert the top shelf panel between the side supports.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 15,
+            "precise_instruction": "Attach the top panel between the upper side supports.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 16,
+            "precise_instruction": "Insert the top shelf panel between the side supports at the top.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 17,
+            "precise_instruction": "Attach the top back rail between the two upper side posts.",
+            "vague_instruction": "Assemble the shelf object."
+        },
+        {
+            "step": 18,
+            "precise_instruction": "Attach the top front rail between the two front uprights above the top shelf.",
+            "vague_instruction": "Assemble the shelf object."
+        }
+    ]
+}

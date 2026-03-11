@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -66,41 +66,42 @@
     <script defer="" src="./static/js/fontawesome.all.min.js"></script>
     <script src="./static/js/bulma-carousel.min.js"></script>
     <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/vendor/three.min.js"></script>
     <script src="./static/js/index.js"></script>
   </head>
 
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a
+        role="button"
+        class="navbar-burger"
+        aria-label="menu"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center">
+        <a class="navbar-item" href="">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
         </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://openhumanoidgen.github.io/">
-            HumanoidGen
-          </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link"> More Research </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://openhumanoidgen.github.io/">
+              HumanoidGen
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
-  </div>
-</nav>
-
+  </nav>
 
   <section class="hero">
     <div class="hero-body">
@@ -193,8 +194,8 @@
               <a class="button" href="" rel="noopener" target="_blank"
                 ><i class="fa-light fa-film"></i>&nbsp;Video (Coming Soon)</a
               >
-              <a class="button" href="" rel="noopener" target="_blank"
-                ><i class="fa-light fa-code"></i>&nbsp;Code (Coming Soon)</a
+              <a class="button" href="https://github.com/TeleHuman/AssemLM" rel="noopener" target="_blank"
+                ><i class="fa-light fa-code"></i>&nbsp;Code</a
               >
             </div>
           </div>
@@ -203,14 +204,41 @@
     </div>
   </section>
 
-  <section class="section" id="abstract">
+    <section class="section" id="abstract">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
         <div class="column">
           <h2 class="title is-3 has-text-centered">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-Spatial reasoning is a fundamental capability for embodied intelligence, especially for fine-grained manipulation tasks such as robotic assembly. While recent vision-language models (VLMs) exhibit preliminary spatial awareness, they largely rely on coarse 2D perception and lack the ability to perform accurate reasoning over 3D geometry, which is crucial for precise assembly operations. To address this limitation, we propose AssemLM, a spatial multimodal large language model tailored for robotic assembly. AssemLM integrates assembly manuals, point clouds, and textual instructions to reason about and predict task-critical 6D assembly poses, enabling explicit geometric understanding throughout the assembly process. To effectively bridge raw 3D perception and high-level reasoning, we adopt a specialized point cloud encoder to capture fine-grained geometric and rotational features, which are then integrated into the multimodal language model to support accurate 3D spatial reasoning for assembly tasks. In addition, we construct AssemBench, a large-scale dataset and benchmark for assembly-oriented spatial reasoning, comprising over 900K multimodal samples with precise 6D pose annotations. AssemBench extends spatial reasoning evaluation beyond 2D and grounding tasks into full 3D geometric inference, filling a critical gap in existing embodied AI benchmarks. Extensive experiments demonstrate that AssemLM achieves state-of-the-art performance in 6D pose reasoning across diverse assembly scenarios. Furthermore, real-robot evaluations show that our model effectively supports long-horizon, fine-grained assembly execution, validating its practical applicability in real-world robotic systems.
+              Spatial reasoning is a fundamental capability for embodied
+              intelligence, especially for fine-grained manipulation tasks such
+              as robotic assembly. While recent vision-language models (VLMs)
+              exhibit preliminary spatial awareness, they largely rely on coarse
+              2D perception and lack the ability to perform accurate reasoning
+              over 3D geometry, which is crucial for precise assembly
+              operations. To address this limitation, we propose AssemLM, a
+              spatial multimodal large language model tailored for robotic
+              assembly. AssemLM integrates assembly manuals, point clouds, and
+              textual instructions to reason about and predict task-critical 6D
+              assembly poses, enabling explicit geometric understanding
+              throughout the assembly process. To effectively bridge raw 3D
+              perception and high-level reasoning, we adopt a specialized point
+              cloud encoder to capture fine-grained geometric and rotational
+              features, which are then integrated into the multimodal language
+              model to support accurate 3D spatial reasoning for assembly tasks.
+              In addition, we construct AssemBench, a large-scale dataset and
+              benchmark for assembly-oriented spatial reasoning, comprising over
+              900K multimodal samples with precise 6D pose annotations.
+              AssemBench extends spatial reasoning evaluation beyond 2D and
+              grounding tasks into full 3D geometric inference, filling a
+              critical gap in existing embodied AI benchmarks. Extensive
+              experiments demonstrate that AssemLM achieves state-of-the-art
+              performance in 6D pose reasoning across diverse assembly
+              scenarios. Furthermore, real-robot evaluations show that our model
+              effectively supports long-horizon, fine-grained assembly
+              execution, validating its practical applicability in real-world
+              robotic systems.
             </p>
           </div>
         </div>
@@ -218,19 +246,726 @@ Spatial reasoning is a fundamental capability for embodied intelligence, especia
     </div>
   </section>
 
-  <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column">
-        <div class="content has-text-centered">
+  <section class="section" id="interactive-results">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-3 has-text-centered">AssemBench Visualization</h2>
+      <div class="interactive-instructions">
+        <div class="interactive-instructions-body">
           <p>
-            Website template borrowed from <a href="https://rekep-robot.github.io/">ReKep</a>, <a href="https://nerfies.github.io">Nerfies</a>,
-            <a href="https://dex-cap.github.io">DexCap</a>,
-            and <a href="https://transic-robot.github.io">TRANSIC</a>. 
+            Select one of the assets below to visualize its details in AssemBench.
           </p>
+          <!-- <ul>
+            <li>
+              <strong>Single Checkpoint:</strong> All predictions come from a
+              single pre-trained PointWorld model.
+            </li>
+            <li>
+              <strong>Inputs:</strong> Static Calibrated RGB-D Captures (t=0),
+              <span class="interactive-highlight-magenta"
+                >Robot Point Flow</span
+              >
+              (t=0...T).
+            </li>
+            <li>
+              <strong>Outputs:</strong>
+              <span class="interactive-highlight-rainbow"
+                >Full-Scene 3D Point Flow</span
+              >
+              (t=0...T) over the 1 m × 1 m × 1 m workspace in front of the
+              robot.
+            </li>
+          </ul> -->
+          <div class="interactive-row" id="interactive-row-droid">
+            <div class="interactive-left-label">Furniture</div>
+            <div class="interactive-right">
+              <div
+                aria-label="DROID interactive scenes"
+                class="interactive-carousel"
+                id="interactive-carousel-droid"
+                role="region"
+              >
+                <button
+                  aria-label="Previous interactive sample"
+                  class="interactive-arrow"
+                  data-direction="prev"
+                  type="button"
+                >
+                  ‹
+                </button>
+                <div
+                  aria-label="DROID scenes"
+                  class="interactive-thumbs"
+                  id="interactive-thumb-row-droid"
+                  role="tablist"
+                >
+                  <button
+                    aria-label="scene-01"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-01"
+                    data-manual-base="interactive/furniture/bench-01"
+                    data-manual-prefix="bench_1000"
+                    data-manual-steps="3"
+                    data-pointcloud-base="interactive/furniture/bench-01/pointcloud"
+                    data-pointcloud-prefix="bench_1000"
+                    data-instruction-url="interactive/furniture/bench-01/instruction.json"
+                    data-camera-lookat="0.00,-0.10,0.00"
+                    data-camera-position="0.45,0.00,0.45"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-01"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-01 thumbnail"
+                      src="interactive/furniture/bench-01/manual_colored/bench_1000_3.png"
+                    />
+                  </button>
+
+                  <button
+                    aria-label="bench-02"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/furniture/bench-02"
+                    data-manual-base="interactive/furniture/bench-02"
+                    data-manual-prefix="bench_1001"
+                    data-manual-steps="5"
+                    data-pointcloud-base="interactive/furniture/bench-02/pointcloud"
+                    data-pointcloud-prefix="bench_1001"
+                    data-instruction-url="interactive/furniture/bench-02/instruction.json"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.6,0.00,0.6"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="bench-02"
+                    type="button"
+                  >
+                    <img
+                      alt="bench-02 thumbnail"
+                      src="interactive/furniture/bench-02/manual_colored/bench_1001_5.png"
+                    />
+                  </button>
+
+                  <button
+                    aria-label="scene-02"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-02"
+                    data-manual-base="interactive/furniture/chair-01"
+                    data-manual-prefix="chair_1012"
+                    data-manual-steps="7"
+                    data-pointcloud-base="interactive/furniture/chair-01/pointcloud"
+                    data-pointcloud-prefix="chair_1012"
+                    data-instruction-url="interactive/furniture/chair-01/instruction.json"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.6,0.00,0.6"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-02"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-02 thumbnail"
+                      src="interactive/furniture/chair-01/manual_colored/chair_1012_7.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="shelf-01"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/furniture/shelf-01"
+                    data-manual-base="interactive/furniture/shelf-01"
+                    data-manual-prefix="shelf_1080"
+                    data-manual-steps="18"
+                    data-manual-style-prefix=""
+                    data-pointcloud-base="interactive/furniture/shelf-01/pointcloud"
+                    data-pointcloud-prefix="shelf_1080"
+                    data-instruction-url="interactive/furniture/shelf-01/instruction.json"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.6,0.00,0.6"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="shelf-01"
+                    type="button"
+                  >
+                    <img
+                      alt="shelf-01 thumbnail"
+                      src="interactive/furniture/shelf-01/colored/shelf_1080_18.png"
+                    />
+                  </button>
+                  <!--
+                  <button
+                    aria-label="scene-03"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-03"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="-0.6,-0.5,0.6"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-03"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-03 thumbnail"
+                      src="interactive/droid-scenes/scene-03/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="scene-04"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-04"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.6,0.00,0.6"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-04"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-04 thumbnail"
+                      src="interactive/droid-scenes/scene-04/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="scene-05"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-05"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="-0.7,0.60,-0.2"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-05"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-05 thumbnail"
+                      src="interactive/droid-scenes/scene-05/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="scene-06"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-06"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.0,0.7,0.00"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-06"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-06 thumbnail"
+                      src="interactive/droid-scenes/scene-06/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="scene-07"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-07"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="-0.35,-0.25,0.22"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-07"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-07 thumbnail"
+                      src="interactive/droid-scenes/scene-07/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="scene-08"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-08"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="-0.4,0.25,0.45"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-08"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-08 thumbnail"
+                      src="interactive/droid-scenes/scene-08/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="scene-09"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/droid-scenes/scene-09"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.35,0.5,0.3"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="scene-09"
+                    type="button"
+                  >
+                    <img
+                      alt="scene-09 thumbnail"
+                      src="interactive/droid-scenes/scene-09/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  -->
+                </div>
+                <button
+                  aria-label="Next interactive sample"
+                  class="interactive-arrow"
+                  data-direction="next"
+                  type="button"
+                >
+                  ›
+                </button>
+              </div>
+              <div
+                aria-label="DROID scene indicators"
+                class="interactive-pagination"
+                id="interactive-dots-droid"
+              ></div>
+            </div>
+          </div>
+          <!-- <div class="interactive-row" id="interactive-row-b1k">
+            <div class="interactive-left-label">BEHAVIOR (simulated)</div>
+            <div class="interactive-right">
+              <div
+                aria-label="BEHAVIOR interactive scenes"
+                class="interactive-carousel"
+                id="interactive-carousel-b1k"
+                role="region"
+              >
+                <button
+                  aria-label="Previous interactive sample"
+                  class="interactive-arrow"
+                  data-direction="prev"
+                  type="button"
+                >
+                  ‹
+                </button>
+                <div
+                  aria-label="BEHAVIOR scenes"
+                  class="interactive-thumbs"
+                  id="interactive-thumb-row-b1k"
+                  role="tablist"
+                >
+                  <button
+                    aria-label="b1k sample 0016-1895"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="0.65,0.6,0.2"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0016_episode_00160540-1895_1906"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0016-1895 thumbnail"
+                      src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0029-2890"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0029_episode_00292010-2890_2901"
+                    data-camera-lookat="0.00,0.10,0.35"
+                    data-camera-position="-0.3,0.40,0.4"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0029_episode_00292010-2890_2901"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0029-2890 thumbnail"
+                      src="interactive/b1k-scenes/task-0029_episode_00292010-2890_2901/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0024-0225"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0024_episode_00242930-225_236"
+                    data-camera-lookat="0.00,0.00,0.00"
+                    data-camera-position="-0.3,1.2,0.8"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0024_episode_00242930-225_236"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0024-0225 thumbnail"
+                      src="interactive/b1k-scenes/task-0024_episode_00242930-225_236/cameras-rgb/cam2.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0020-0760"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0020_episode_00201550-760_771"
+                    data-camera-lookat="0.00,-0.0,0.2"
+                    data-camera-position="-0.25,0.00,1.0"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0020_episode_00201550-760_771"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0020-0760 thumbnail"
+                      src="interactive/b1k-scenes/task-0020_episode_00201550-760_771/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0025-0640"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0025_episode_00252890-640_651"
+                    data-camera-lookat="0.00,0.00,0.30"
+                    data-camera-position="0.6,0.00,0.5"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0025_episode_00252890-640_651"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0025-0640 thumbnail"
+                      src="interactive/b1k-scenes/task-0025_episode_00252890-640_651/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0006"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0006_episode_00060540-360_371"
+                    data-camera-lookat="0.00,0.00,0.50"
+                    data-camera-position="0.00,1.3,1.30"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0006_episode_00060540-360_371"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0006 thumbnail"
+                      src="interactive/b1k-scenes/task-0006_episode_00060540-360_371/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0011-1230"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0011_episode_00111880-1230_1241"
+                    data-camera-lookat="0.00,0.00,0.85"
+                    data-camera-position="-0.45,0.50,1.40"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0011_episode_00111880-1230_1241"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0011-1230 thumbnail"
+                      src="interactive/b1k-scenes/task-0011_episode_00111880-1230_1241/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0013-3165"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0013_episode_00131780-3165_3176"
+                    data-camera-lookat="0.00,0.00,0.7"
+                    data-camera-position="1.0,1.0,1.30"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0013_episode_00131780-3165_3176"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0013-3165 thumbnail"
+                      src="interactive/b1k-scenes/task-0013_episode_00131780-3165_3176/cameras-rgb/cam1.png"
+                    />
+                  </button>
+                  <button
+                    aria-label="b1k sample 0024-3165"
+                    aria-pressed="false"
+                    class="interactive-thumb"
+                    data-base="interactive/b1k-scenes/task-0024_episode_00240270-3165_3176"
+                    data-camera-lookat="0.00,0.00,0.4"
+                    data-camera-position="-0.75,-0.50,0.4"
+                    data-camera-up="0.000,0.000,1.000"
+                    data-label="progress-pretrain-b1k_2025-09-03_22-01-51-test-b1k+test-task-0024_episode_00240270-3165_3176"
+                    type="button"
+                  >
+                    <img
+                      alt="b1k 0024-3165 thumbnail"
+                      src="interactive/b1k-scenes/task-0024_episode_00240270-3165_3176/cameras-rgb/cam0.png"
+                    />
+                  </button>
+                </div>
+                <button
+                  aria-label="Next interactive sample"
+                  class="interactive-arrow"
+                  data-direction="next"
+                  type="button"
+                >
+                  ›
+                </button>
+              </div>
+              <div
+                aria-label="BEHAVIOR scene indicators"
+                class="interactive-pagination"
+                id="interactive-dots-b1k"
+              ></div>
+            </div>
+          </div> -->
+          
+          <!-- <p class="interactive-note">
+            <strong>NOTE:</strong> The model operates on voxel-downsampled
+            (1.5 cm) point clouds. For visual clarity, we upsample the
+            predictions and and the ground truth by applying the same
+            displacement to all points within each voxel. The green color in
+            ground truth visualization indicate the points that are inaccurate
+            due to occlusion (from 2D trackers used to provide annotations).
+            Note that these points are not used to supervise the model, hence
+            it's often observed that the model predicts better than the ground
+            truth for occluded point flows after training.
+          </p> -->
+        </div>
+      </div>
+      
+      <div class="interactive-panel" id="interactive-panel">
+        <div
+          class="interactive-card interactive-card--inputs"
+          id="interactive-inputs-droid"
+        >
+          <div class="interactive-manual-overview" data-manual-overview></div>
+          <h3 class="title is-5">
+            Assembly Manual (Step <span data-manual-step-label>1</span>)
+            <span aria-hidden="true" class="hint-banner hint-banner--zoom"
+              >Hover to zoom</span
+            >
+          </h3>
+          <div class="interactive-step-controls" id="interactive-step-controls"></div>
+          <div class="interactive-manual-placeholder is-hidden" data-manual-placeholder>
+            Select an asset above to view assembly steps.
+          </div>
+          <div class="interactive-manual-grid" id="interactive-manual-grid">
+            <figure>
+              <img alt="Colored before" data-manual-role="colored-before" />
+              <figcaption>Colored · Before</figcaption>
+            </figure>
+            <figure>
+              <img alt="Colored after" data-manual-role="colored-after" />
+              <figcaption>Colored · After</figcaption>
+            </figure>
+            <figure>
+              <img alt="Freestyle before" data-manual-role="freestyle-before" />
+              <figcaption>Freestyle · Before</figcaption>
+            </figure>
+            <figure>
+              <img alt="Freestyle after" data-manual-role="freestyle-after" />
+              <figcaption>Freestyle · After</figcaption>
+            </figure>
+            <figure>
+              <img alt="Lineart before" data-manual-role="lineart-before" />
+              <figcaption>Lineart · Before</figcaption>
+            </figure>
+            <figure>
+              <img alt="Lineart after" data-manual-role="lineart-after" />
+              <figcaption>Lineart · After</figcaption>
+            </figure>
+            <figure>
+              <img alt="Nonfreestyle before" data-manual-role="nonfreestyle-before" />
+              <figcaption>Nonfreestyle · Before</figcaption>
+            </figure>
+            <figure>
+              <img alt="Nonfreestyle after" data-manual-role="nonfreestyle-after" />
+              <figcaption>Nonfreestyle · After</figcaption>
+            </figure>
+          </div>
+          <div class="interactive-instructions-panel" data-instruction-panel>
+            <h4 class="title is-6">
+              Step Instructions (Step <span data-instruction-step-label>1</span>)
+            </h4>
+            <div class="interactive-instructions-placeholder is-hidden" data-instruction-placeholder>
+              Select an asset above to view instructions.
+            </div>
+            <div class="interactive-instructions-content" data-instruction-content>
+              <div class="instruction-block">
+                <div class="instruction-label">Precise Instruction</div>
+                <div class="instruction-text" data-instruction-precise></div>
+              </div>
+              <div class="instruction-block">
+                <div class="instruction-label">Vague Instruction</div>
+                <div class="instruction-text" data-instruction-vague></div>
+              </div>
+            </div>
+          </div>
+          <div class="interactive-pointcloud" data-pointcloud-panel>
+            <h4 class="title is-6">
+              Point Cloud (Step <span data-pointcloud-step-label>1</span>)
+            </h4>
+            <div class="interactive-pointcloud-placeholder is-hidden" data-pointcloud-placeholder>
+              Select an asset above to view point clouds.
+            </div>
+            <div class="interactive-pointcloud-legend" data-pointcloud-legend>
+              <span class="legend-item legend-item--red">Red: assembly part</span>
+              <span class="legend-item legend-item--blue">Blue: assembled part</span>
+            </div>
+            <div class="interactive-pointcloud-status" data-pointcloud-status></div>
+            <div class="interactive-pointcloud-controls">
+              <button class="interactive-pointcloud-randomize" data-pointcloud-randomize type="button">
+                Randomize Assembly Part
+              </button>
+              <div class="interactive-pointcloud-prediction" data-pointcloud-prediction>
+                <div class="interactive-pointcloud-prediction-label">Predicted 9D Output</div>
+                <div class="interactive-pointcloud-prediction-values" data-pointcloud-prediction-values></div>
+                <div class="interactive-pointcloud-prediction-label interactive-pointcloud-prediction-label--secondary">Pose Tokens</div>
+                <div class="interactive-pointcloud-prediction-values interactive-pointcloud-prediction-tokens" data-pointcloud-prediction-tokens></div>
+              </div>
+            </div>
+            <div class="interactive-pointcloud-view-grid">
+              <div class="interactive-pointcloud-view-block">
+                <div class="interactive-pointcloud-view-label">Target Point Cloud</div>
+                <div class="interactive-pointcloud-viewer" data-pointcloud-viewer-target></div>
+              </div>
+              <div class="interactive-pointcloud-view-block">
+                <div class="interactive-pointcloud-view-label">Input Point Cloud · Assembly Part</div>
+                <div class="interactive-pointcloud-viewer" data-pointcloud-viewer-input></div>
+              </div>
+              <div class="interactive-pointcloud-view-block">
+                <div class="interactive-pointcloud-view-label">Input Point Cloud · Assembled Part</div>
+                <div class="interactive-pointcloud-viewer" data-pointcloud-viewer-prediction></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="interactive-card interactive-card--inputs is-hidden"
+          id="interactive-inputs-b1k"
+        >
+          <h3 class="title is-5">
+            Static Calibrated RGB-D Captures (Input)
+            <span aria-hidden="true" class="hint-banner hint-banner--zoom"
+              >Hover to zoom</span
+            >
+          </h3>
+          <div class="interactive-image-grid interactive-image-grid--b1k">
+            <figure>
+              <img
+                alt="b1k RGB cam0"
+                data-role="rgb0"
+                src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-rgb/cam0.png"
+              />
+              <figcaption>RGB cam0</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="b1k RGB cam1"
+                data-role="rgb1"
+                src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-rgb/cam1.png"
+              />
+              <figcaption>RGB cam1</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="b1k RGB cam2"
+                data-role="rgb2"
+                src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-rgb/cam2.png"
+              />
+              <figcaption>RGB cam2</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="b1k depth cam0"
+                data-role="depth0"
+                src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-depth/cam0.png"
+              />
+              <figcaption>Depth cam0</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="b1k depth cam1"
+                data-role="depth1"
+                src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-depth/cam1.png"
+              />
+              <figcaption>Depth cam1</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt="b1k depth cam2"
+                data-role="depth2"
+                src="interactive/b1k-scenes/task-0016_episode_00160540-1895_1906/cameras-depth/cam2.png"
+              />
+              <figcaption>Depth cam2</figcaption>
+            </figure>
+          </div>
+        </div>
+
+
+        <!-- <div class="interactive-card interactive-card--viewer">
+          <h3 class="title is-5">
+            <span class="interactive-highlight-rainbow"
+              >Full-Scene 3D Point Flow</span
+            >
+            Prediction (conditioned on
+            <span class="interactive-highlight-magenta">Robot Point Flow</span>)
+            <span
+              aria-hidden="true"
+              class="hint-banner hint-banner--move is-hidden"
+              data-viser-hint="interactive-pred"
+              >Click and move me</span
+            >
+          </h3>
+          <div class="interactive-viewer">
+            <div
+              aria-hidden="true"
+              class="viser-banner viser-banner--interactive is-placeholder"
+            >
+              choose a scene above to view interactive visualization
+            </div>
+            <iframe
+              allow="fullscreen xr-spatial-tracking"
+              class="interactive-iframe"
+              id="interactive-pred"
+              loading="lazy"
+              title="PointWorld prediction viewer (click and move me)"
+            ></iframe>
+          </div>
+        </div>
+        <div class="interactive-card interactive-card--viewer">
+          <h3 class="title is-5">
+            Ground Truth Reference
+            <span
+              aria-hidden="true"
+              class="hint-banner hint-banner--move is-hidden"
+              data-viser-hint="interactive-gt"
+              >Click and move me</span
+            >
+          </h3>
+          <div class="interactive-viewer">
+            <div
+              aria-hidden="true"
+              class="viser-banner viser-banner--interactive is-placeholder"
+            >
+              choose a scene above to view interactive visualization
+            </div>
+            <iframe
+              allow="fullscreen xr-spatial-tracking"
+              class="interactive-iframe"
+              id="interactive-gt"
+              loading="lazy"
+              title="Ground truth viewer (click and move me)"
+            ></iframe>
+          </div>
+        </div> -->
+      
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column">
+          <div class="content has-text-centered">
+            <p>
+              Website template borrowed from
+              <a href="https://rekep-robot.github.io/">ReKep</a>,
+              <a href="https://nerfies.github.io">Nerfies</a>,
+              <a href="https://dex-cap.github.io">DexCap</a>, and
+              <a href="https://transic-robot.github.io">TRANSIC</a>.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 </html>
