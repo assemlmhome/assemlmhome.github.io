@@ -2,7 +2,7 @@
     "Bowl_10_fractured_63": [
         {
             "step": 1,
-            "precise_instruction": "Attach the curved top piece to the existing base by aligning its jagged edge with the corresponding jagged edge on the base and pressing them together. According to the assembly diagram, assemble the part corresponding to the second point cloud onto the part corresponding to the first point cloud.",
+            "precise_instruction": "Fit the fractured pieces together to reassemble the bowl.",
             "vague_instruction": "Assemble the bowl object."
         }
     ]

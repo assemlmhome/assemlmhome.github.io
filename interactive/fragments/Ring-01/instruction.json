@@ -2,7 +2,7 @@
     "Ring_9b586cba3598cca2fffe50105e90d100_fractured_77": [
         {
             "step": 1,
-            "precise_instruction": "Attach the new ring-shaped part to the existing curved piece by aligning the open ends and securing them together to form a complete circle. According to the assembly diagram, assemble the part corresponding to the second point cloud onto the part corresponding to the first point cloud.",
+            "precise_instruction": "Align the fractured ends and secure them together to complete the ring.",
             "vague_instruction": "Assemble the ring object."
         }
     ]

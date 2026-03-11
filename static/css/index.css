@@ -67,9 +67,19 @@ body {
   margin-left: -10px;
 }
 
-.publication-title {
+/* .publication-title {
   font-family: 'Google Sans', sans-serif;
   color: #8C1515;
+} */
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+  color: #1f4fa3;
+  background: linear-gradient(135deg, #7fb6ff 0%, #3f7fe8 40%, #2457b8 72%, #193f8f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 24px rgba(36, 87, 184, 0.12);
+  letter-spacing: -0.02em;
 }
 
 .publication-banner {
@@ -88,8 +98,15 @@ body {
 .publication-header .hero-body {
 }
 
-.publication-title {
+/* .publication-title {
     font-family: 'Google Sans', sans-serif;
+} */
+
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 800;
+  line-height: 1.08;
 }
 
 .publication-authors {

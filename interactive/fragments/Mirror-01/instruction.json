@@ -2,7 +2,7 @@
     "Mirror_64787f14d1a665c3575521cb6b84d22e_fractured_5": [
         {
             "step": 1,
-            "precise_instruction": "Attach the scalloped edge trim to the top surface of the base piece by aligning its curved edge with the upper contour and securing it in place. According to the assembly diagram, assemble the part corresponding to the second point cloud onto the part corresponding to the first point cloud.",
+            "precise_instruction": "Align the fractured mirror piece with the upper edge and attach it to complete the mirror.",
             "vague_instruction": "Assemble the mirror object."
         }
     ]
