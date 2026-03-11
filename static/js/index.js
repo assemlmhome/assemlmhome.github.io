@@ -338,6 +338,14 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       }
 
+      function bindPointcloudRandomizeHandler() {
+        if (!pointcloudRandomize) return;
+        pointcloudRandomize.onclick = function () {
+          if (!pointcloudState.sample) return;
+          updatePointcloudDemonstration(true);
+        };
+      }
+
       function renderManualOverview(base, prefix, steps, label) {
         if (!manualOverview) return;
         manualOverview.innerHTML = '';
@@ -1034,6 +1042,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
       function applyManualConfig(button, label) {
         if (!manualRoles.length) return;
+        bindPointcloudRandomizeHandler();
         var base = button.getAttribute('data-manual-base');
         var prefix = button.getAttribute('data-manual-prefix');
         var stepsRaw = button.getAttribute('data-manual-steps');
@@ -1102,13 +1111,6 @@ window.addEventListener('DOMContentLoaded', function () {
           setPointcloudPlaceholderText('Point cloud is not available for this asset.');
           setPointcloudVisible(false);
         }
-      }
-
-      if (pointcloudRandomize) {
-        pointcloudRandomize.addEventListener('click', function () {
-          if (!pointcloudState.sample) return;
-          updatePointcloudDemonstration(true);
-        });
       }
 
       var activeIdx = -1;
