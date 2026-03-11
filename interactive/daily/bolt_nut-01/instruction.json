@@ -1,0 +1,9 @@
+{
+    "bench_1000": [
+        {
+            "step": 1,
+            "precise_instruction": "Insert the rod into the base hole and attach the top cap.",
+            "vague_instruction": "Assemble the bolt nut object."
+        }
+    ]
+}

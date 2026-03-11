@@ -1,0 +1,9 @@
+{
+    "bench_1000": [
+        {
+            "step": 1,
+            "precise_instruction": "Insert the flower stems into the vase opening.",
+            "vague_instruction": "Assemble the insert flower object."
+        }
+    ]
+}

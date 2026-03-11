@@ -1,0 +1,9 @@
+{
+    "DrinkingUtensil_model_fractured_27": [
+        {
+            "step": 1,
+            "precise_instruction": "Attach the cylindrical part to the existing structure by aligning its open end with the connection point and securing it in place. According to the assembly diagram, assemble the part corresponding to the second point cloud onto the part corresponding to the first point cloud.",
+            "vague_instruction": "Assemble the drinkingutensil object."
+        }
+    ]
+}

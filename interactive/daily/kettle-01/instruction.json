@@ -1,0 +1,9 @@
+{
+    "bench_1000": [
+        {
+            "step": 1,
+            "precise_instruction": "Place the lid onto the top opening of the pot.",
+            "vague_instruction": "Assemble the kettle object."
+        }
+    ]
+}

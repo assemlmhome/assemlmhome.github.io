@@ -503,10 +503,34 @@ window.addEventListener('DOMContentLoaded', function () {
         return viewer;
       }
 
+      function attachPointcloudViewer(viewer, container) {
+        if (!viewer || !container || !viewer.renderer) return viewer;
+        viewer.container = container;
+        if (container.firstChild !== viewer.renderer.domElement) {
+          container.innerHTML = '';
+          container.appendChild(viewer.renderer.domElement);
+        }
+        container._pointcloudResize = function () { resizePointcloudViewer(viewer); };
+        resizePointcloudViewer(viewer);
+        return viewer;
+      }
+
       function ensurePointcloudViewers() {
-        if (!pointcloudViewers.target) pointcloudViewers.target = createPointcloudViewer(pointcloudViewerTarget);
-        if (!pointcloudViewers.input) pointcloudViewers.input = createPointcloudViewer(pointcloudViewerInput);
-        if (!pointcloudViewers.prediction) pointcloudViewers.prediction = createPointcloudViewer(pointcloudViewerPrediction);
+        if (!pointcloudViewers.target) {
+          pointcloudViewers.target = createPointcloudViewer(pointcloudViewerTarget);
+        } else {
+          attachPointcloudViewer(pointcloudViewers.target, pointcloudViewerTarget);
+        }
+        if (!pointcloudViewers.input) {
+          pointcloudViewers.input = createPointcloudViewer(pointcloudViewerInput);
+        } else {
+          attachPointcloudViewer(pointcloudViewers.input, pointcloudViewerInput);
+        }
+        if (!pointcloudViewers.prediction) {
+          pointcloudViewers.prediction = createPointcloudViewer(pointcloudViewerPrediction);
+        } else {
+          attachPointcloudViewer(pointcloudViewers.prediction, pointcloudViewerPrediction);
+        }
       }
 
       function initPointcloudControls(viewer) {
@@ -997,7 +1021,11 @@ window.addEventListener('DOMContentLoaded', function () {
             return res.json();
           })
           .then(function (data) {
+            var keys = data ? Object.keys(data) : [];
             var list = data && data[prefix] ? data[prefix] : [];
+            if ((!list || !list.length) && keys.length) {
+              list = data[keys[0]] || [];
+            }
             instructionState.data = { steps: list };
             instructionState.steps = steps;
             return list;
@@ -1147,6 +1175,24 @@ window.addEventListener('DOMContentLoaded', function () {
       manualRoles: ['colored-before','colored-after','freestyle-before','freestyle-after','lineart-before','lineart-after','nonfreestyle-before','nonfreestyle-after'],
       autoActivate: false
     });
+    var dailyApi = initOneCarousel({
+      container: document.getElementById('interactive-row-daily'),
+      thumbRowSelector: '#interactive-thumb-row-daily',
+      dotsSelector: '#interactive-dots-daily',
+      inputsCardId: 'interactive-inputs-droid',
+      imageRoles: ['rgb0','depth0','rgb1','depth1'],
+      manualRoles: ['colored-before','colored-after','freestyle-before','freestyle-after','lineart-before','lineart-after','nonfreestyle-before','nonfreestyle-after'],
+      autoActivate: false
+    });
+    var fragmentsApi = initOneCarousel({
+      container: document.getElementById('interactive-row-fragments'),
+      thumbRowSelector: '#interactive-thumb-row-fragments',
+      dotsSelector: '#interactive-dots-fragments',
+      inputsCardId: 'interactive-inputs-droid',
+      imageRoles: ['rgb0','depth0','rgb1','depth1'],
+      manualRoles: ['colored-before','colored-after','freestyle-before','freestyle-after','lineart-before','lineart-after','nonfreestyle-before','nonfreestyle-after'],
+      autoActivate: false
+    });
     var b1kApi = initOneCarousel({
       container: document.getElementById('interactive-row-b1k'),
       thumbRowSelector: '#interactive-thumb-row-b1k',
@@ -1192,8 +1238,20 @@ window.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', syncB1KGridWidth);
     // Wire up listeners so clicking in a row also flips inputs card
     var droidRow = document.getElementById('interactive-row-droid');
+    var dailyRow = document.getElementById('interactive-row-daily');
+    var fragmentsRow = document.getElementById('interactive-row-fragments');
     var b1kRow = document.getElementById('interactive-row-b1k');
     if (droidRow) droidRow.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.interactive-thumb')) {
+        showInputs('droid');
+      }
+    });
+    if (dailyRow) dailyRow.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.interactive-thumb')) {
+        showInputs('droid');
+      }
+    });
+    if (fragmentsRow) fragmentsRow.addEventListener('click', function (e) {
       if (e.target.closest && e.target.closest('.interactive-thumb')) {
         showInputs('droid');
       }
