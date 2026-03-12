@@ -156,6 +156,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function initOneCarousel(opts) {
       var container = opts.container;
+        if (!container) {
+          return null;
+        }
       var thumbRow = container.querySelector(opts.thumbRowSelector);
       var thumbs = Array.from(container.querySelectorAll(opts.thumbRowSelector + ' .interactive-thumb'));
       var dotsContainer = container.querySelector(opts.dotsSelector);
@@ -1570,4 +1573,477 @@ window.addEventListener('DOMContentLoaded', function () {
       magnifier.init();
     }
   }
+
+  function initPredictionVisualization() {
+    var section = document.getElementById('prediction-results');
+    if (!section || !window.THREE) {
+      return;
+    }
+
+    var allSamples = [
+      // Daily Predict
+      { id: 'daily_predict/sample_8_data', label: 'Sample 8', category: 'children_toy', group: 'daily' },
+      { id: 'daily_predict/sample_35_data', label: 'Sample 35', category: 'bolt_nut_pairwise', group: 'daily' },
+      { id: 'daily_predict/sample_38_data', label: 'Sample 38', category: 'insert_coin_piggy', group: 'daily' },
+      { id: 'daily_predict/sample_51_data', label: 'Sample 51', category: 'key_lock_pairwise', group: 'daily' },
+      { id: 'daily_predict/sample_52_data', label: 'Sample 52', category: 'key_lock_pairwise', group: 'daily' },
+      { id: 'daily_predict/sample_56_data', label: 'Sample 56', category: 'usb_cap', group: 'daily' },
+      { id: 'daily_predict/sample_62_data', label: 'Sample 62', category: 'beer_bottle', group: 'daily' },
+      { id: 'daily_predict/sample_63_data', label: 'Sample 63', category: 'beer_bottle', group: 'daily' },
+      { id: 'daily_predict/sample_64_data', label: 'Sample 64', category: 'beer_bottle', group: 'daily' },
+      { id: 'daily_predict/sample_71_data', label: 'Sample 71', category: 'processed_cups', group: 'daily' },
+      { id: 'daily_predict/sample_77_data', label: 'Sample 77', category: 'Kitchenport_partnet_processed', group: 'daily' },
+      { id: 'daily_predict/sample_84_data', label: 'Sample 84', category: 'bottle_partnet_processed', group: 'daily' },
+      { id: 'daily_predict/sample_87_data', label: 'Sample 87', category: 'bottle_partnet_processed', group: 'daily' },
+      { id: 'daily_predict/sample_108_data', label: 'Sample 108', category: 'insert_flower', group: 'daily' },
+      // Fragments Predict
+      { id: 'fragments_predict/sample_4_data', label: 'Sample 4', category: 'BeerBottle', group: 'fragments' },
+      { id: 'fragments_predict/sample_38_data', label: 'Sample 38', category: 'Bottle', group: 'fragments' },
+      { id: 'fragments_predict/sample_345_data', label: 'Sample 345', category: 'Cup', group: 'fragments' },
+      { id: 'fragments_predict/sample_571_data', label: 'Sample 571', category: 'Mug', group: 'fragments' },
+      { id: 'fragments_predict/sample_574_data', label: 'Sample 574', category: 'Mug', group: 'fragments' },
+      { id: 'fragments_predict/sample_584_data', label: 'Sample 584', category: 'Mug', group: 'fragments' },
+      { id: 'fragments_predict/sample_588_data', label: 'Sample 588', category: 'Mug', group: 'fragments' },
+      { id: 'fragments_predict/sample_603_data', label: 'Sample 603', category: 'Mug', group: 'fragments' },
+      // Furniture Predict
+      { id: 'furniture_predict/sample_0_data', label: 'Sample 0', category: 'bench', group: 'furniture' },
+      { id: 'furniture_predict/sample_31_data', label: 'Sample 31', category: 'bench', group: 'furniture' },
+      { id: 'furniture_predict/sample_334_data', label: 'Sample 334', category: 'desk', group: 'furniture' },
+      { id: 'furniture_predict/sample_428_data', label: 'Sample 428', category: 'table', group: 'furniture' },
+      { id: 'furniture_predict/sample_4570_data', label: 'Sample 4570', category: 'chair', group: 'furniture' },
+      { id: 'furniture_predict/sample_5472_data', label: 'Sample 5472', category: 'chair', group: 'furniture' },
+      { id: 'furniture_predict/sample_5481_data', label: 'Sample 5481', category: 'chair', group: 'furniture' },
+      { id: 'furniture_predict/sample_5996_data', label: 'Sample 5996', category: 'chair', group: 'furniture' }
+    ];
+
+    var samples = [];
+    var activeCategory = 'daily';
+    function switchPredictionCategory(cat) {
+      activeCategory = cat;
+      samples = allSamples.filter(function (s) { return s.group === cat; });
+      
+      section.querySelectorAll('[data-prediction-category]').forEach(function (btn) {
+        btn.classList.toggle('is-active', btn.getAttribute('data-prediction-category') === cat);
+      });
+
+      renderThumbsAndDots();
+      activateSample(0);
+    }
+
+    var thumbRow = section.querySelector('#prediction-thumb-row');
+    var dotsContainer = section.querySelector('#prediction-dots');
+    var status = section.querySelector('[data-prediction-status]');
+    var sampleLabel = section.querySelector('[data-prediction-sample-label]');
+    var categoryLabel = section.querySelector('[data-prediction-category-label]');
+    var gtTransEl = section.querySelector('[data-prediction-gt-trans]');
+    var gtRot6dEl = section.querySelector('[data-prediction-gt-rot6d]');
+    var predTransEl = section.querySelector('[data-prediction-pred-trans]');
+    var predRot6dEl = section.querySelector('[data-prediction-pred-rot6d]');
+    var viewerSrcEl = section.querySelector('[data-prediction-viewer-src]');
+    var viewerGtEl = section.querySelector('[data-prediction-viewer-gt]');
+    var viewerPredEl = section.querySelector('[data-prediction-viewer-pred]');
+
+    var activeIdx = -1;
+    var requestToken = 0;
+    var cache = {};
+    var thumbs = [];
+    var dots = [];
+    var viewers = { src: null, gt: null, pred: null };
+
+    function setStatus(text) {
+      if (status) status.textContent = text || '';
+    }
+
+    function formatValues(values) {
+      if (!values || !values.length) return '—';
+      return Array.from(values).map(function (value) {
+        return Number(value).toFixed(4);
+      }).join(', ');
+    }
+
+    function parsePredictionNpy(buffer) {
+      var view = new DataView(buffer);
+      var magic = String.fromCharCode.apply(null, new Uint8Array(buffer, 0, 6));
+      if (magic !== '\u0093NUMPY') {
+        throw new Error('Invalid NPY header');
+      }
+      var major = view.getUint8(6);
+      var headerLen = major <= 1 ? view.getUint16(8, true) : view.getUint32(8, true);
+      var headerOffset = major <= 1 ? 10 : 12;
+      var header = new TextDecoder('ascii').decode(new Uint8Array(buffer, headerOffset, headerLen));
+      var descrMatch = header.match(/'descr'\s*:\s*'([^']+)'/);
+      var shapeMatch = header.match(/'shape'\s*:\s*\(([^\)]*)\)/);
+      var orderMatch = header.match(/'fortran_order'\s*:\s*(True|False)/);
+      if (!descrMatch || !shapeMatch) {
+        throw new Error('Invalid NPY metadata');
+      }
+      var descr = descrMatch[1];
+      var littleEndian = descr[0] === '<' || descr[0] === '|';
+      if (!littleEndian) {
+        throw new Error('Only little-endian NPY is supported');
+      }
+      var dtype = descr.slice(1);
+      var shapeParts = shapeMatch[1].split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+      var shape = shapeParts.map(function (s) { return parseInt(s, 10); });
+      var fortranOrder = orderMatch && orderMatch[1] === 'True';
+      if (fortranOrder) {
+        throw new Error('Fortran-order NPY not supported');
+      }
+      var dataOffset = headerOffset + headerLen;
+      var dataBuffer = buffer.slice(dataOffset);
+      var data;
+      if (dtype === 'f4') {
+        data = new Float32Array(dataBuffer);
+      } else if (dtype === 'f8') {
+        data = new Float64Array(dataBuffer);
+      } else {
+        throw new Error('Unsupported dtype: ' + dtype);
+      }
+      // If data is (3, N), transpose to (N, 3)
+      if (shape.length === 2 && shape[0] === 3 && shape[1] > 3) {
+        var n = shape[1];
+        var transposed = new Float32Array(n * 3);
+        for (var i = 0; i < n; i++) {
+          transposed[i * 3 + 0] = data[0 * n + i];
+          transposed[i * 3 + 1] = data[1 * n + i];
+          transposed[i * 3 + 2] = data[2 * n + i];
+        }
+        return transposed;
+      }
+      return data;
+    }
+
+    function loadPredictionNpy(url) {
+      return fetch(url)
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to fetch ' + url);
+          return res.arrayBuffer();
+        })
+        .then(parsePredictionNpy);
+    }
+
+    function buildPredictionAxes(length) {
+      var group = new THREE.Group();
+      var origin = new THREE.Vector3(0, 0, 0);
+      var xEnd = new THREE.Vector3(length, 0, 0);
+      var yEnd = new THREE.Vector3(0, length, 0);
+      var zEnd = new THREE.Vector3(0, 0, length);
+
+      function addAxisLine(start, end, color) {
+        var geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+        var material = new THREE.LineBasicMaterial({ color: color });
+        var line = new THREE.Line(geometry, material);
+        group.add(line);
+      }
+
+      addAxisLine(origin, xEnd, 0xff0000);
+      addAxisLine(origin, yEnd, 0x00ff00);
+      addAxisLine(origin, zEnd, 0x0000ff);
+      return group;
+    }
+
+    function createPredictionViewer(container) {
+      if (!container) return null;
+      var viewer = {
+        container: container,
+        scene: new THREE.Scene(),
+        camera: new THREE.PerspectiveCamera(45, 1, 0.01, 100),
+        renderer: new THREE.WebGLRenderer({ antialias: true, alpha: true }),
+        points: [],
+        controls: {
+          target: new THREE.Vector3(0, 0, 0),
+          radius: 1,
+          theta: -Math.PI / 2,
+          phi: Math.PI / 2,
+          dragging: false,
+          lastX: 0,
+          lastY: 0
+        }
+      };
+      viewer.scene.background = new THREE.Color(0xffffff);
+      viewer.scene.add(buildPredictionAxes(0.3));
+      viewer.camera.up.set(0, 0, 1);
+      viewer.renderer.setPixelRatio(window.devicePixelRatio || 1);
+      container.innerHTML = '';
+      container.appendChild(viewer.renderer.domElement);
+
+      var canvas = viewer.renderer.domElement;
+      canvas.addEventListener('mousedown', function (e) {
+        viewer.controls.dragging = true;
+        viewer.controls.lastX = e.clientX;
+        viewer.controls.lastY = e.clientY;
+      });
+      window.addEventListener('mouseup', function () {
+        viewer.controls.dragging = false;
+      });
+      canvas.addEventListener('mouseleave', function () {
+        viewer.controls.dragging = false;
+      });
+      canvas.addEventListener('mousemove', function (e) {
+        if (!viewer.controls.dragging) return;
+        var dx = e.clientX - viewer.controls.lastX;
+        var dy = e.clientY - viewer.controls.lastY;
+        viewer.controls.lastX = e.clientX;
+        viewer.controls.lastY = e.clientY;
+        viewer.controls.theta -= dx * 0.005;
+        viewer.controls.phi -= dy * 0.005;
+        var eps = 0.05;
+        viewer.controls.phi = Math.max(eps, Math.min(Math.PI - eps, viewer.controls.phi));
+        updatePredictionCamera(viewer);
+      });
+      canvas.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        viewer.controls.radius = Math.max(0.05, viewer.controls.radius * (1 + e.deltaY * 0.001));
+        updatePredictionCamera(viewer);
+      }, { passive: false });
+
+      function loop() {
+        viewer.renderer.render(viewer.scene, viewer.camera);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+      resizePredictionViewer(viewer);
+      container._predictionResize = function () { resizePredictionViewer(viewer); };
+      return viewer;
+    }
+
+    function attachPredictionViewer(viewer, container) {
+      if (!viewer || !container || !viewer.renderer) return viewer;
+      viewer.container = container;
+      if (container.firstChild !== viewer.renderer.domElement) {
+        container.innerHTML = '';
+        container.appendChild(viewer.renderer.domElement);
+      }
+      container._predictionResize = function () { resizePredictionViewer(viewer); };
+      resizePredictionViewer(viewer);
+      return viewer;
+    }
+
+    function resizePredictionViewer(viewer) {
+      if (!viewer || !viewer.container) return;
+      var rect = viewer.container.getBoundingClientRect();
+      var width = Math.max(1, Math.floor(rect.width));
+      var height = Math.max(1, Math.floor(rect.height));
+      viewer.renderer.setSize(width, height, false);
+      viewer.camera.aspect = width / height;
+      viewer.camera.updateProjectionMatrix();
+    }
+
+    function updatePredictionCamera(viewer) {
+      var controls = viewer.controls;
+      var r = controls.radius;
+      var theta = controls.theta;
+      var phi = controls.phi;
+      var sinPhi = Math.sin(phi);
+      var x = controls.target.x + r * sinPhi * Math.cos(theta);
+      var y = controls.target.y + r * sinPhi * Math.sin(theta);
+      var z = controls.target.z + r * Math.cos(phi);
+      viewer.camera.position.set(x, y, z);
+      viewer.camera.lookAt(controls.target);
+    }
+
+    function clearPredictionViewer(viewer) {
+      if (!viewer) return;
+      viewer.points.forEach(function (obj) {
+        viewer.scene.remove(obj);
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) obj.material.dispose();
+      });
+      viewer.points = [];
+    }
+
+    function pointsObject(points, colorHex) {
+      if (!points || points.length < 3) return null;
+      var geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(points), 3));
+      geometry.computeBoundingSphere();
+      var material = new THREE.PointsMaterial({ size: 0.01, color: colorHex, sizeAttenuation: true });
+      return new THREE.Points(geometry, material);
+    }
+
+    function fitPredictionCamera(viewer) {
+      if (!viewer) return;
+      var box = new THREE.Box3();
+      viewer.points.forEach(function (obj) { box.expandByObject(obj); });
+      if (box.isEmpty()) return;
+      var center = box.getCenter(new THREE.Vector3());
+      var size = box.getSize(new THREE.Vector3());
+      var maxDim = Math.max(size.x, size.y, size.z);
+      viewer.controls.target.copy(center);
+      viewer.controls.radius = Math.max(maxDim * 2.2, 0.1);
+      viewer.controls.theta = -Math.PI / 2;
+      viewer.controls.phi = Math.PI / 2;
+      updatePredictionCamera(viewer);
+    }
+
+    function renderPredictionSet(viewer, partA, partB, colorA, colorB) {
+      if (!viewer) return;
+      clearPredictionViewer(viewer);
+      var partAObj = pointsObject(partA, colorA || 0xff6b6b);
+      var partBObj = pointsObject(partB, colorB || 0x4dabf7);
+      if (partAObj) { viewer.scene.add(partAObj); viewer.points.push(partAObj); }
+      if (partBObj) { viewer.scene.add(partBObj); viewer.points.push(partBObj); }
+      fitPredictionCamera(viewer);
+    }
+
+    function ensurePredictionViewers() {
+      if (!viewers.src) {
+        viewers.src = createPredictionViewer(viewerSrcEl);
+      } else {
+        attachPredictionViewer(viewers.src, viewerSrcEl);
+      }
+      if (!viewers.gt) {
+        viewers.gt = createPredictionViewer(viewerGtEl);
+      } else {
+        attachPredictionViewer(viewers.gt, viewerGtEl);
+      }
+      if (!viewers.pred) {
+        viewers.pred = createPredictionViewer(viewerPredEl);
+      } else {
+        attachPredictionViewer(viewers.pred, viewerPredEl);
+      }
+    }
+
+    function loadSampleData(sampleId) {
+      if (cache[sampleId]) return cache[sampleId];
+      var base = 'interactive/' + sampleId;
+      cache[sampleId] = Promise.all([
+        loadPredictionNpy(base + '/src_pc_randomized.npy'),
+        loadPredictionNpy(base + '/tgt_pc.npy'),
+        loadPredictionNpy(base + '/gt_transformed_src_pc.npy'),
+        loadPredictionNpy(base + '/pred_transformed_src_pc.npy'),
+        loadPredictionNpy(base + '/gt_pose/trans.npy'),
+        loadPredictionNpy(base + '/gt_pose/rot_6d.npy'),
+        loadPredictionNpy(base + '/pred_pose/trans.npy'),
+        loadPredictionNpy(base + '/pred_pose/rot_6d.npy')
+      ]).then(function (results) {
+        return {
+          srcPc: results[0],
+          tgtPc: results[1],
+          gtPc: results[2],
+          predPc: results[3],
+          gtTrans: results[4],
+          gtRot6d: results[5],
+          predTrans: results[6],
+          predRot6d: results[7]
+        };
+      });
+      return cache[sampleId];
+    }
+
+    function activateSample(index) {
+      if (index < 0 || index >= samples.length) return;
+      activeIdx = index;
+      thumbs.forEach(function (btn, idx) {
+        btn.classList.toggle('is-active', idx === index);
+        btn.setAttribute('aria-pressed', idx === index ? 'true' : 'false');
+      });
+      dots.forEach(function (dot, idx) {
+        dot.classList.toggle('is-active', idx === index);
+      });
+
+      var sample = samples[index];
+      if (sampleLabel) sampleLabel.textContent = sample.label;
+      if (categoryLabel) categoryLabel.textContent = sample.category;
+      if (gtTransEl) gtTransEl.textContent = 'Loading...';
+      if (gtRot6dEl) gtRot6dEl.textContent = 'Loading...';
+      if (predTransEl) predTransEl.textContent = 'Loading...';
+      if (predRot6dEl) predRot6dEl.textContent = 'Loading...';
+      setStatus('Loading prediction sample...');
+      var token = ++requestToken;
+
+      loadSampleData(sample.id)
+        .then(function (data) {
+          if (token !== requestToken || activeIdx !== index) return;
+          ensurePredictionViewers();
+          if (gtTransEl) gtTransEl.textContent = formatValues(data.gtTrans);
+          if (gtRot6dEl) gtRot6dEl.textContent = formatValues(data.gtRot6d);
+          if (predTransEl) predTransEl.textContent = formatValues(data.predTrans);
+          if (predRot6dEl) predRot6dEl.textContent = formatValues(data.predRot6d);
+
+          // Input: Gray Assembly Part + Blue Target Part
+          renderPredictionSet(viewers.src, data.srcPc, data.tgtPc, 0xaaaaaa, 0x4dabf7);
+          // GT: Red Assembly Part + Blue Target Part
+          renderPredictionSet(viewers.gt, data.gtPc, data.tgtPc, 0xff0000, 0x4dabf7);
+          // Pred: Green Assembly Part + Blue Target Part
+          renderPredictionSet(viewers.pred, data.predPc, data.tgtPc, 0x00ff00, 0x4dabf7);
+          setStatus('');
+        })
+        .catch(function (error) {
+          console.error('Prediction visualization load failed:', error);
+          if (gtTransEl) gtTransEl.textContent = 'N/A';
+          if (gtRot6dEl) gtRot6dEl.textContent = 'N/A';
+          if (predTransEl) predTransEl.textContent = 'N/A';
+          if (predRot6dEl) predRot6dEl.textContent = 'N/A';
+          setStatus('Failed to load prediction sample. Check console for details.');
+        });
+    }
+
+    function renderThumbsAndDots() {
+      if (thumbRow) {
+        thumbRow.innerHTML = '';
+        thumbs = samples.map(function (sample, idx) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'prediction-thumb';
+          btn.setAttribute('aria-label', sample.label + ' ' + sample.category);
+          btn.setAttribute('aria-pressed', 'false');
+          btn.innerHTML =
+            '<div class="prediction-thumb-title">' + sample.label + '</div>' +
+            '<div class="prediction-thumb-category">' + sample.category.replace(/_/g, ' ') + '</div>';
+          btn.addEventListener('click', function () { activateSample(idx); });
+          thumbRow.appendChild(btn);
+          return btn;
+        });
+      }
+
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        dots = samples.map(function (_, idx) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'carousel-dot';
+          dot.setAttribute('aria-label', 'Show prediction sample ' + (idx + 1));
+          dot.addEventListener('click', function () { activateSample(idx); });
+          dotsContainer.appendChild(dot);
+          return dot;
+        });
+      }
+    }
+
+    section.querySelectorAll('[data-prediction-category]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        switchPredictionCategory(btn.getAttribute('data-prediction-category'));
+      });
+    });
+
+    switchPredictionCategory('daily');
+
+    section.querySelectorAll('.prediction-arrow').forEach(function (arrow) {
+      arrow.addEventListener('click', function (event) {
+        event.preventDefault();
+        var direction = arrow.getAttribute('data-direction') === 'prev' ? -1 : 1;
+        var next = activeIdx < 0 ? (direction === -1 ? samples.length - 1 : 0) : (activeIdx + direction + samples.length) % samples.length;
+        activateSample(next);
+        if (thumbs[next]) {
+          thumbs[next].focus();
+          thumbs[next].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+    });
+
+    window.addEventListener('resize', function () {
+      [viewerSrcEl, viewerTgtEl, viewerGtEl, viewerPredEl].forEach(function (viewerEl) {
+        if (viewerEl && viewerEl._predictionResize) {
+          viewerEl._predictionResize();
+        }
+      });
+    });
+
+    requestAnimationFrame(function () {
+      activateSample(0);
+    });
+  }
+
+  initPredictionVisualization();
 });
