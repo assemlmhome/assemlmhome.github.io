@@ -1,0 +1,24 @@
+{
+    "can_storage": [
+        {
+            "step": 1,
+            "precise_instruction": "Insert the additional can into the empty slot in the tray.",
+            "vague_instruction": "Assemble the can object."
+        },
+        {
+            "step": 2,
+            "precise_instruction": "Insert the can into the tray compartment.",
+            "vague_instruction": "Assemble the can object."
+        },
+        {
+            "step": 3,
+            "precise_instruction": "Place the can into an open slot in the tray.",
+            "vague_instruction": "Assemble the can object."
+        },
+        {
+            "step": 4,
+            "precise_instruction": "Insert the can into the tray compartment.",
+            "vague_instruction": "Assemble the can object."
+        }
+    ]
+}

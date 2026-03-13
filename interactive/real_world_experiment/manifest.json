@@ -1,0 +1,225 @@
+{
+  "version": 2,
+  "tasks": [
+    {
+      "id": "block_building-01",
+      "name": "block_building",
+      "base": "interactive/real_world_experiment/block_building-01",
+      "video": "interactive/real_world_experiment/block_building-01/block_building-01.h264.mp4",
+      "real2sim": "interactive/real_world_experiment/block_building-01/block_building.png",
+      "instruction_url": "interactive/real_world_experiment/block_building-01/instruction.json",
+      "step_count": 2,
+      "steps": [
+        {
+          "step": 1,
+          "instruction": {
+            "step": 1,
+            "precise_instruction": "Attach the large square top plate across the four upright blocks to connect them at the top.",
+            "vague_instruction": "Assemble the block object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/block_building-01/manual_freestyle/block_building_0_0.png",
+            "post": "interactive/real_world_experiment/block_building-01/manual_freestyle/block_building_0_1.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/block_building-01/real_scene/step_0.png",
+            "post": "interactive/real_world_experiment/block_building-01/real_scene/step_1.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_0",
+            "base": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_0/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_0/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_0/partA_pred_transformed.npy"
+          }
+        },
+        {
+          "step": 2,
+          "instruction": {
+            "step": 2,
+            "precise_instruction": "Attach the tall block vertically onto the back edge of the top platform.",
+            "vague_instruction": "Assemble the block object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/block_building-01/manual_freestyle/block_building_0_1.png",
+            "post": "interactive/real_world_experiment/block_building-01/manual_freestyle/block_building_0_2.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/block_building-01/real_scene/step_1.png",
+            "post": "interactive/real_world_experiment/block_building-01/real_scene/step_2.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_1",
+            "base": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_1/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_1/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/block_building-01/pointcloud/appx_block_building_1/partA_pred_transformed.npy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "can_storage-01",
+      "name": "can_storage",
+      "base": "interactive/real_world_experiment/can_storage-01",
+      "video": "interactive/real_world_experiment/can_storage-01/can_storage-01.h264.mp4",
+      "real2sim": "interactive/real_world_experiment/can_storage-01/can_storage.png",
+      "instruction_url": "interactive/real_world_experiment/can_storage-01/instruction.json",
+      "step_count": 4,
+      "steps": [
+        {
+          "step": 1,
+          "instruction": {
+            "step": 1,
+            "precise_instruction": "Insert the additional can into the empty slot in the tray.",
+            "vague_instruction": "Assemble the can object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_0.png",
+            "post": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_1.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/can_storage-01/real_scene/step_0.png",
+            "post": "interactive/real_world_experiment/can_storage-01/real_scene/step_1.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_0/pointcloud",
+            "base": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_0/pointcloud/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_0/pointcloud/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_0/pointcloud/partA_pred_transformed.npy"
+          }
+        },
+        {
+          "step": 2,
+          "instruction": {
+            "step": 2,
+            "precise_instruction": "Insert the can into the tray compartment.",
+            "vague_instruction": "Assemble the can object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_1.png",
+            "post": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_2.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/can_storage-01/real_scene/step_1.png",
+            "post": "interactive/real_world_experiment/can_storage-01/real_scene/step_2.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_1/pointcloud",
+            "base": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_1/pointcloud/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_1/pointcloud/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_1/pointcloud/partA_pred_transformed.npy"
+          }
+        },
+        {
+          "step": 3,
+          "instruction": {
+            "step": 3,
+            "precise_instruction": "Place the can into an open slot in the tray.",
+            "vague_instruction": "Assemble the can object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_2.png",
+            "post": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_3.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/can_storage-01/real_scene/step_2.png",
+            "post": "interactive/real_world_experiment/can_storage-01/real_scene/step_3.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_2/pointcloud",
+            "base": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_2/pointcloud/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_2/pointcloud/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_2/pointcloud/partA_pred_transformed.npy"
+          }
+        },
+        {
+          "step": 4,
+          "instruction": {
+            "step": 4,
+            "precise_instruction": "Insert the can into the tray compartment.",
+            "vague_instruction": "Assemble the can object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_3.png",
+            "post": "interactive/real_world_experiment/can_storage-01/manual_freestyle/paper_can_storage_freestyle_4.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/can_storage-01/real_scene/step_3.png",
+            "post": "interactive/real_world_experiment/can_storage-01/real_scene/step_4.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_3/pointcloud",
+            "base": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_3/pointcloud/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_3/pointcloud/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/can_storage-01/pointcloud/appx_can_storage_3/pointcloud/partA_pred_transformed.npy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "flower_insertion-01",
+      "name": "flower_insertion",
+      "base": "interactive/real_world_experiment/flower_insertion-01",
+      "video": "interactive/real_world_experiment/flower_insertion-01/flower_insertion-01.h264.mp4",
+      "real2sim": "interactive/real_world_experiment/flower_insertion-01/flower_insertion.png",
+      "instruction_url": "interactive/real_world_experiment/flower_insertion-01/instruction.json",
+      "step_count": 1,
+      "steps": [
+        {
+          "step": 1,
+          "instruction": {
+            "step": 1,
+            "precise_instruction": "Insert the flower stem into the top opening of the vase.",
+            "vague_instruction": "Assemble the flower object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/flower_insertion-01/manual_freestyle/paper_flower_insertion_freestyle_0.png",
+            "post": "interactive/real_world_experiment/flower_insertion-01/manual_freestyle/paper_flower_insertion_freestyle_1.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/flower_insertion-01/real_scene/step_0.png",
+            "post": "interactive/real_world_experiment/flower_insertion-01/real_scene/step_1.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/flower_insertion-01/pointcloud/appx_flower_insertion_0/pointcloud",
+            "base": "interactive/real_world_experiment/flower_insertion-01/pointcloud/appx_flower_insertion_0/pointcloud/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/flower_insertion-01/pointcloud/appx_flower_insertion_0/pointcloud/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/flower_insertion-01/pointcloud/appx_flower_insertion_0/pointcloud/partA_pred_transformed.npy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plug_insertion-01",
+      "name": "plug_insertion",
+      "base": "interactive/real_world_experiment/plug_insertion-01",
+      "video": "interactive/real_world_experiment/plug_insertion-01/plug_insertion-01.h264.mp4",
+      "real2sim": "interactive/real_world_experiment/plug_insertion-01/plug_insertion.png",
+      "instruction_url": "interactive/real_world_experiment/plug_insertion-01/instruction.json",
+      "step_count": 1,
+      "steps": [
+        {
+          "step": 1,
+          "instruction": {
+            "step": 1,
+            "precise_instruction": "Mount the rectangular insulating block with the circular hole upright onto the rear end of the plug base.",
+            "vague_instruction": "Assemble the plug object."
+          },
+          "manual": {
+            "pre": "interactive/real_world_experiment/plug_insertion-01/manual_freestyle/paper_plug_insertion_freestyle_0.png",
+            "post": "interactive/real_world_experiment/plug_insertion-01/manual_freestyle/paper_plug_insertion_freestyle_1.png"
+          },
+          "real_scene": {
+            "pre": "interactive/real_world_experiment/plug_insertion-01/real_scene/step_0.png",
+            "post": "interactive/real_world_experiment/plug_insertion-01/real_scene/step_1.png"
+          },
+          "pointcloud": {
+            "folder": "interactive/real_world_experiment/plug_insertion-01/pointcloud/appx_plug_insertion_0/pointcloud",
+            "base": "interactive/real_world_experiment/plug_insertion-01/pointcloud/appx_plug_insertion_0/pointcloud/base_partB-pc.npy",
+            "gt": "interactive/real_world_experiment/plug_insertion-01/pointcloud/appx_plug_insertion_0/pointcloud/partA_gt_transformed.npy",
+            "pred": "interactive/real_world_experiment/plug_insertion-01/pointcloud/appx_plug_insertion_0/pointcloud/partA_pred_transformed.npy"
+          }
+        }
+      ]
+    }
+  ]
+}

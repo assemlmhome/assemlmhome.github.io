@@ -1323,6 +1323,124 @@
     </div>
   </section>
 
+  <section class="section" id="real-world-results">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-3 has-text-centered">Real World Experiments Visualization</h2>
+      <div class="prediction-visualization-intro" style="text-align: center; margin-bottom: 2rem;">
+        <p>
+          Visualize <b>real-world robot experiments</b> with paired <b>before/after</b> Real2Sim assembly diagrams and real-scene images,
+          plus step-wise point clouds (ground truth vs prediction).
+        </p>
+        <div class="prediction-category-selector" data-realworld-task-selector style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;"></div>
+      </div>
+
+      <div class="prediction-browser" id="realworld-browser">
+        <div class="prediction-browser-row">
+          <button
+            aria-label="Previous real-world step"
+            class="prediction-arrow realworld-arrow"
+            data-direction="prev"
+            type="button"
+          >
+            ‹
+          </button>
+          <div
+            aria-label="Real-world steps"
+            class="prediction-thumbs"
+            id="realworld-thumb-row"
+            role="tablist"
+          ></div>
+          <button
+            aria-label="Next real-world step"
+            class="prediction-arrow realworld-arrow"
+            data-direction="next"
+            type="button"
+          >
+            ›
+          </button>
+        </div>
+        <div class="prediction-pagination" id="realworld-dots"></div>
+
+        <div class="prediction-panel">
+          <div class="prediction-panel-header">
+            <div>
+              <h3 class="title is-5"><span data-realworld-task-label>Real-world task</span></h3>
+              <p class="prediction-panel-subtitle">
+                <span>Step</span>
+                <span data-realworld-step-label>—</span>
+                <span aria-hidden="true">·</span>
+                <span data-realworld-step-count>—</span>
+              </p>
+            </div>
+            <div class="prediction-legend">
+              <span class="legend-item">Gray: assembled base</span>
+              <span class="legend-item">Red: ground truth</span>
+              <span class="legend-item">Green: prediction</span>
+            </div>
+          </div>
+
+          <div class="prediction-status" data-realworld-status>
+            Loading real-world experiments...
+          </div>
+
+          <div class="realworld-instruction-grid">
+            <div class="prediction-pose-card">
+              <div class="prediction-pose-title">Precise Instruction</div>
+              <div class="realworld-instruction-text" data-realworld-instruction-precise>—</div>
+            </div>
+            <div class="prediction-pose-card">
+              <div class="prediction-pose-title">Vague Instruction</div>
+              <div class="realworld-instruction-text" data-realworld-instruction-vague>—</div>
+            </div>
+          </div>
+
+          <div class="realworld-media-grid">
+            <div class="realworld-media">
+              <div class="realworld-media-label">Real2Sim Assembly Diagram (Before)</div>
+              <img class="realworld-image" data-realworld-manual-pre alt="Assembly diagram before" />
+            </div>
+            <div class="realworld-media">
+              <div class="realworld-media-label">Real2Sim Assembly Diagram (After)</div>
+              <img class="realworld-image" data-realworld-manual-post alt="Assembly diagram after" />
+            </div>
+            <div class="realworld-media">
+              <div class="realworld-media-label">Real Scene (Before)</div>
+              <img class="realworld-image" data-realworld-real-scene-pre alt="Real scene before" />
+            </div>
+            <div class="realworld-media">
+              <div class="realworld-media-label">Real Scene (After)</div>
+              <img class="realworld-image" data-realworld-real-scene-post alt="Real scene after" />
+            </div>
+          </div>
+
+          <div class="prediction-view-grid realworld-view-grid">
+            <div class="prediction-view-block">
+              <div class="prediction-view-label">Ground-Truth Assembly</div>
+              <div class="prediction-viewer" data-realworld-viewer-gt></div>
+            </div>
+            <div class="prediction-view-block">
+              <div class="prediction-view-label">Predicted Assembly</div>
+              <div class="prediction-viewer" data-realworld-viewer-pred></div>
+            </div>
+          </div>
+
+          <div class="realworld-media-grid">
+            <div class="realworld-media">
+              <div class="realworld-media-label">Robot Execution Video</div>
+              <video class="realworld-video" data-realworld-video controls playsinline preload="metadata">
+                <source data-realworld-video-source type="video/mp4" />
+              </video>
+            </div>
+            <div class="realworld-media">
+              <div class="realworld-media-label">Real2Sim Asset Preview</div>
+              <img class="realworld-image" data-realworld-real2sim alt="Real2Sim preview" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <footer class="footer">
     <div class="container">

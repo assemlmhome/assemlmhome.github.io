@@ -11,6 +11,479 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function initRealWorldExperimentsVisualization() {
+    var section = document.getElementById('real-world-results');
+    if (!section) return;
+
+    var taskSelector = section.querySelector('[data-realworld-task-selector]');
+    var thumbRow = section.querySelector('#realworld-thumb-row');
+    var dotsContainer = section.querySelector('#realworld-dots');
+
+    var statusEl = section.querySelector('[data-realworld-status]');
+    var taskLabelEl = section.querySelector('[data-realworld-task-label]');
+    var stepLabelEl = section.querySelector('[data-realworld-step-label]');
+    var stepCountEl = section.querySelector('[data-realworld-step-count]');
+
+    var videoEl = section.querySelector('[data-realworld-video]');
+    var videoSourceEl = section.querySelector('[data-realworld-video-source]');
+    var real2simImgEl = section.querySelector('[data-realworld-real2sim]');
+    var manualPreImgEl = section.querySelector('[data-realworld-manual-pre]');
+    var manualPostImgEl = section.querySelector('[data-realworld-manual-post]');
+    var realScenePreImgEl = section.querySelector('[data-realworld-real-scene-pre]');
+    var realScenePostImgEl = section.querySelector('[data-realworld-real-scene-post]');
+
+    var preciseEl = section.querySelector('[data-realworld-instruction-precise]');
+    var vagueEl = section.querySelector('[data-realworld-instruction-vague]');
+
+    var viewerGtEl = section.querySelector('[data-realworld-viewer-gt]');
+    var viewerPredEl = section.querySelector('[data-realworld-viewer-pred]');
+
+    var tasks = [];
+    var activeTaskIdx = 0;
+    var activeStepIdx = 0;
+    var stepThumbs = [];
+    var stepDots = [];
+
+    var requestToken = 0;
+    var cache = {};
+    var viewers = { gt: null, pred: null };
+
+    function setStatus(text) {
+      if (statusEl) statusEl.textContent = text || '';
+    }
+
+    function prettyName(value) {
+      return String(value || '')
+        .replace(/-01$/i, '')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    }
+
+    function parseRealWorldNpy(buffer) {
+      var view = new DataView(buffer);
+      var magic = String.fromCharCode.apply(null, new Uint8Array(buffer, 0, 6));
+      if (magic !== '\u0093NUMPY') {
+        throw new Error('Invalid NPY header');
+      }
+      var major = view.getUint8(6);
+      var headerLen = major <= 1 ? view.getUint16(8, true) : view.getUint32(8, true);
+      var headerOffset = major <= 1 ? 10 : 12;
+      var header = new TextDecoder('ascii').decode(new Uint8Array(buffer, headerOffset, headerLen));
+      var descrMatch = header.match(/'descr'\s*:\s*'([^']+)'/);
+      var shapeMatch = header.match(/'shape'\s*:\s*\(([^\)]*)\)/);
+      var orderMatch = header.match(/'fortran_order'\s*:\s*(True|False)/);
+      if (!descrMatch || !shapeMatch) {
+        throw new Error('Invalid NPY metadata');
+      }
+      var descr = descrMatch[1];
+      var littleEndian = descr[0] === '<' || descr[0] === '|';
+      if (!littleEndian) {
+        throw new Error('Only little-endian NPY is supported');
+      }
+      var dtype = descr.slice(1);
+      var shapeParts = shapeMatch[1].split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+      var shape = shapeParts.map(function (s) { return parseInt(s, 10); });
+      var fortranOrder = orderMatch && orderMatch[1] === 'True';
+      if (fortranOrder) {
+        throw new Error('Fortran-order NPY not supported');
+      }
+      var dataOffset = headerOffset + headerLen;
+      var dataBuffer = buffer.slice(dataOffset);
+
+      var data;
+      if (dtype === 'f4') {
+        data = new Float32Array(dataBuffer);
+      } else if (dtype === 'f8') {
+        data = new Float64Array(dataBuffer);
+      } else {
+        throw new Error('Unsupported dtype: ' + dtype);
+      }
+
+      // Normalize to Float32
+      var floats = new Float32Array(data.length);
+      for (var i = 0; i < data.length; i++) floats[i] = data[i];
+
+      // If data is (3, N), transpose to (N, 3)
+      if (shape.length === 2 && shape[0] === 3 && shape[1] > 3) {
+        var n = shape[1];
+        var out = new Float32Array(n * 3);
+        for (var j = 0; j < n; j++) {
+          out[j * 3 + 0] = floats[0 * n + j];
+          out[j * 3 + 1] = floats[1 * n + j];
+          out[j * 3 + 2] = floats[2 * n + j];
+        }
+        return out;
+      }
+
+      return floats;
+    }
+
+    function loadRealWorldNpy(url) {
+      if (!url) return Promise.resolve(null);
+      return fetch(url, { cache: 'no-store' })
+        .then(function (res) {
+          if (!res.ok) {
+            throw new Error('Failed to fetch ' + url);
+          }
+          return res.arrayBuffer();
+        })
+        .then(parseRealWorldNpy);
+    }
+
+    function buildAxes(length) {
+      var group = new THREE.Group();
+      var origin = new THREE.Vector3(0, 0, 0);
+      var xEnd = new THREE.Vector3(length, 0, 0);
+      var yEnd = new THREE.Vector3(0, length, 0);
+      var zEnd = new THREE.Vector3(0, 0, length);
+
+      function addAxisLine(start, end, color) {
+        var geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+        var material = new THREE.LineBasicMaterial({ color: color });
+        var line = new THREE.Line(geometry, material);
+        group.add(line);
+      }
+
+      addAxisLine(origin, xEnd, 0xff0000);
+      addAxisLine(origin, yEnd, 0x00ff00);
+      addAxisLine(origin, zEnd, 0x0000ff);
+      return group;
+    }
+
+    function createViewer(container) {
+      if (!container) return null;
+      var viewer = {
+        container: container,
+        scene: new THREE.Scene(),
+        camera: new THREE.PerspectiveCamera(45, 1, 0.01, 100),
+        renderer: new THREE.WebGLRenderer({ antialias: true, alpha: true }),
+        points: [],
+        controls: {
+          target: new THREE.Vector3(0, 0, 0),
+          radius: 1,
+          theta: -Math.PI / 2,
+          phi: Math.PI / 2,
+          dragging: false,
+          lastX: 0,
+          lastY: 0
+        }
+      };
+
+      viewer.scene.background = new THREE.Color(0xffffff);
+      viewer.scene.add(buildAxes(0.3));
+      viewer.camera.up.set(0, 0, 1);
+      viewer.renderer.setPixelRatio(window.devicePixelRatio || 1);
+
+      container.innerHTML = '';
+      container.appendChild(viewer.renderer.domElement);
+
+      var canvas = viewer.renderer.domElement;
+      canvas.addEventListener('mousedown', function (e) {
+        viewer.controls.dragging = true;
+        viewer.controls.lastX = e.clientX;
+        viewer.controls.lastY = e.clientY;
+      });
+      window.addEventListener('mouseup', function () {
+        viewer.controls.dragging = false;
+      });
+      canvas.addEventListener('mouseleave', function () {
+        viewer.controls.dragging = false;
+      });
+      canvas.addEventListener('mousemove', function (e) {
+        if (!viewer.controls.dragging) return;
+        var dx = e.clientX - viewer.controls.lastX;
+        var dy = e.clientY - viewer.controls.lastY;
+        viewer.controls.lastX = e.clientX;
+        viewer.controls.lastY = e.clientY;
+        viewer.controls.theta -= dx * 0.005;
+        viewer.controls.phi -= dy * 0.005;
+        var eps = 0.05;
+        viewer.controls.phi = Math.max(eps, Math.min(Math.PI - eps, viewer.controls.phi));
+        updateCamera(viewer);
+      });
+      canvas.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        viewer.controls.radius = Math.max(0.05, viewer.controls.radius * (1 + e.deltaY * 0.001));
+        updateCamera(viewer);
+      }, { passive: false });
+
+      function loop() {
+        viewer.renderer.render(viewer.scene, viewer.camera);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      function resize() {
+        if (!viewer || !viewer.container) return;
+        var rect = viewer.container.getBoundingClientRect();
+        var width = Math.max(1, Math.floor(rect.width));
+        var height = Math.max(1, Math.floor(rect.height));
+        viewer.renderer.setSize(width, height, false);
+        viewer.camera.aspect = width / height;
+        viewer.camera.updateProjectionMatrix();
+      }
+
+      container._realworldResize = resize;
+      resize();
+      updateCamera(viewer);
+      return viewer;
+    }
+
+    function updateCamera(viewer) {
+      var c = viewer.controls;
+      var r = c.radius;
+      var theta = c.theta;
+      var phi = c.phi;
+      var sinPhi = Math.sin(phi);
+      var x = c.target.x + r * sinPhi * Math.cos(theta);
+      var y = c.target.y + r * sinPhi * Math.sin(theta);
+      var z = c.target.z + r * Math.cos(phi);
+      viewer.camera.position.set(x, y, z);
+      viewer.camera.lookAt(c.target);
+    }
+
+    function clearViewer(viewer) {
+      if (!viewer) return;
+      viewer.points.forEach(function (obj) {
+        viewer.scene.remove(obj);
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) obj.material.dispose();
+      });
+      viewer.points = [];
+    }
+
+    function pointsObject(points, colorHex) {
+      if (!points || points.length < 3) return null;
+      var geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(points), 3));
+      geometry.computeBoundingSphere();
+      var material = new THREE.PointsMaterial({ size: 0.01, color: colorHex, sizeAttenuation: true });
+      return new THREE.Points(geometry, material);
+    }
+
+    function fitCamera(viewer) {
+      if (!viewer) return;
+      var box = new THREE.Box3();
+      viewer.points.forEach(function (obj) { box.expandByObject(obj); });
+      if (box.isEmpty()) return;
+      var center = box.getCenter(new THREE.Vector3());
+      var size = box.getSize(new THREE.Vector3());
+      var maxDim = Math.max(size.x, size.y, size.z);
+      viewer.controls.target.copy(center);
+      viewer.controls.radius = Math.max(maxDim * 2.2, 0.1);
+      viewer.controls.theta = -Math.PI / 2;
+      viewer.controls.phi = Math.PI / 2;
+      updateCamera(viewer);
+    }
+
+    function renderSet(viewer, basePoints, partPoints, baseColor, partColor) {
+      if (!viewer) return;
+      clearViewer(viewer);
+      var baseObj = pointsObject(basePoints, baseColor);
+      var partObj = pointsObject(partPoints, partColor);
+      if (baseObj) { viewer.scene.add(baseObj); viewer.points.push(baseObj); }
+      if (partObj) { viewer.scene.add(partObj); viewer.points.push(partObj); }
+      fitCamera(viewer);
+    }
+
+    function ensureViewers() {
+      if (!viewers.gt) viewers.gt = createViewer(viewerGtEl);
+      if (!viewers.pred) viewers.pred = createViewer(viewerPredEl);
+    }
+
+    function loadStepPointcloud(step) {
+      if (!step || !step.pointcloud) return Promise.resolve(null);
+      var key = step.pointcloud.folder || ('step:' + step.step);
+      if (cache[key]) return cache[key];
+      cache[key] = Promise.all([
+        loadRealWorldNpy(step.pointcloud.base),
+        loadRealWorldNpy(step.pointcloud.gt),
+        loadRealWorldNpy(step.pointcloud.pred)
+      ]).then(function (arr) {
+        return {
+          base: arr[0],
+          gt: arr[1],
+          pred: arr[2]
+        };
+      });
+      return cache[key];
+    }
+
+    function renderStepThumbs() {
+      var task = tasks[activeTaskIdx];
+      if (!task) return;
+      var steps = task.steps || [];
+
+      if (thumbRow) {
+        thumbRow.innerHTML = '';
+        stepThumbs = steps.map(function (s, idx) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'prediction-thumb';
+          btn.setAttribute('aria-pressed', 'false');
+          var title = 'Step ' + s.step;
+          var subtitle = (s.instruction && s.instruction.precise_instruction) ? s.instruction.precise_instruction : '';
+          btn.innerHTML =
+            '<div class="prediction-thumb-title">' + title + '</div>' +
+            '<div class="prediction-thumb-category">' + (subtitle ? subtitle : '') + '</div>';
+          btn.addEventListener('click', function () { activateStep(idx); });
+          thumbRow.appendChild(btn);
+          return btn;
+        });
+      }
+
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        stepDots = steps.map(function (_, idx) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'carousel-dot';
+          dot.setAttribute('aria-label', 'Show real-world step ' + (idx + 1));
+          dot.addEventListener('click', function () { activateStep(idx); });
+          dotsContainer.appendChild(dot);
+          return dot;
+        });
+      }
+    }
+
+    function activateTask(idx) {
+      if (idx < 0 || idx >= tasks.length) return;
+      activeTaskIdx = idx;
+      activeStepIdx = 0;
+
+      var task = tasks[activeTaskIdx];
+      if (taskLabelEl) taskLabelEl.textContent = prettyName(task.name || task.id);
+      if (stepCountEl) stepCountEl.textContent = String(task.step_count || (task.steps ? task.steps.length : 0));
+
+      if (videoEl) {
+        var videoUrl = task.video || '';
+        if (videoSourceEl) {
+          videoSourceEl.src = videoUrl;
+          try { videoEl.load(); } catch (e) {}
+        } else {
+          videoEl.src = videoUrl;
+          try { videoEl.load(); } catch (e2) {}
+        }
+      }
+      if (real2simImgEl) real2simImgEl.src = task.real2sim || '';
+
+      if (taskSelector) {
+        taskSelector.querySelectorAll('button[data-realworld-task-idx]').forEach(function (btn) {
+          btn.classList.toggle('is-active', Number(btn.getAttribute('data-realworld-task-idx')) === idx);
+        });
+      }
+
+      renderStepThumbs();
+      activateStep(0);
+    }
+
+    function activateStep(idx) {
+      var task = tasks[activeTaskIdx];
+      if (!task || !task.steps || idx < 0 || idx >= task.steps.length) return;
+
+      activeStepIdx = idx;
+      var step = task.steps[idx];
+      var stepNumber = step.step;
+
+      stepThumbs.forEach(function (btn, i) {
+        btn.classList.toggle('is-active', i === idx);
+        btn.setAttribute('aria-pressed', i === idx ? 'true' : 'false');
+      });
+      stepDots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === idx);
+      });
+
+      if (stepLabelEl) stepLabelEl.textContent = String(stepNumber);
+      if (manualPreImgEl) manualPreImgEl.src = (step.manual && step.manual.pre) ? step.manual.pre : '';
+      if (manualPostImgEl) manualPostImgEl.src = (step.manual && step.manual.post) ? step.manual.post : '';
+      if (realScenePreImgEl) realScenePreImgEl.src = (step.real_scene && step.real_scene.pre) ? step.real_scene.pre : '';
+      if (realScenePostImgEl) realScenePostImgEl.src = (step.real_scene && step.real_scene.post) ? step.real_scene.post : '';
+      if (preciseEl) preciseEl.textContent = (step.instruction && step.instruction.precise_instruction) ? step.instruction.precise_instruction : '—';
+      if (vagueEl) vagueEl.textContent = (step.instruction && step.instruction.vague_instruction) ? step.instruction.vague_instruction : '—';
+
+      setStatus('Loading step point clouds...');
+      ensureViewers();
+      var token = ++requestToken;
+
+      loadStepPointcloud(step)
+        .then(function (pc) {
+          if (token !== requestToken || activeStepIdx !== idx) return;
+          if (!pc || !pc.base) {
+            renderSet(viewers.gt, null, null, 0xaaaaaa, 0xff0000);
+            renderSet(viewers.pred, null, null, 0xaaaaaa, 0x00ff00);
+            setStatus('Point clouds are not available for this step.');
+            return;
+          }
+          // GT: Gray base + Red GT
+          renderSet(viewers.gt, pc.base, pc.gt, 0xaaaaaa, 0xff0000);
+          // Pred: Gray base + Green Pred
+          renderSet(viewers.pred, pc.base, pc.pred, 0xaaaaaa, 0x00ff00);
+          setStatus('');
+        })
+        .catch(function (err) {
+          console.error('Real-world step load failed:', err);
+          setStatus('Failed to load step data: ' + (err && err.message ? err.message : String(err)));
+        });
+    }
+
+    function setupTaskSelector() {
+      if (!taskSelector) return;
+      taskSelector.innerHTML = '';
+      tasks.forEach(function (task, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'button is-rounded' + (idx === 0 ? ' is-active' : '');
+        btn.setAttribute('data-realworld-task-idx', String(idx));
+        btn.textContent = prettyName(task.name || task.id);
+        btn.addEventListener('click', function () { activateTask(idx); });
+        taskSelector.appendChild(btn);
+      });
+    }
+
+    section.querySelectorAll('.realworld-arrow').forEach(function (arrow) {
+      arrow.addEventListener('click', function (event) {
+        event.preventDefault();
+        var task = tasks[activeTaskIdx];
+        var steps = task && task.steps ? task.steps : [];
+        if (!steps.length) return;
+        var direction = arrow.getAttribute('data-direction') === 'prev' ? -1 : 1;
+        var next = (activeStepIdx + direction + steps.length) % steps.length;
+        activateStep(next);
+        if (stepThumbs[next]) {
+          stepThumbs[next].focus();
+          stepThumbs[next].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+    });
+
+    window.addEventListener('resize', function () {
+      [viewerGtEl, viewerPredEl].forEach(function (el) {
+        if (el && el._realworldResize) el._realworldResize();
+      });
+    });
+
+    var manifestBaseUrl = 'interactive/real_world_experiment/manifest.json';
+    var manifestUrl = manifestBaseUrl + '?t=' + Date.now();
+    fetch(manifestUrl, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Failed to fetch ' + manifestBaseUrl);
+        return res.json();
+      })
+      .then(function (data) {
+        tasks = (data && data.tasks) ? data.tasks : [];
+        if (!tasks.length) {
+          setStatus('No real-world experiments were found.');
+          return;
+        }
+        setupTaskSelector();
+        activateTask(0);
+      })
+      .catch(function (err) {
+        console.error('Failed to load real-world manifest:', err);
+        setStatus('Failed to load real-world experiments. Check console for details.');
+      });
+  }
+
 	  var VISER_PLACEHOLDER_TEXT = 'Choose a scene above';
 	  var VISER_READY_TEXT = 'Click and move me';
 
@@ -2080,4 +2553,5 @@ window.addEventListener('DOMContentLoaded', function () {
   }
 
   initPredictionVisualization();
+  initRealWorldExperimentsVisualization();
 });

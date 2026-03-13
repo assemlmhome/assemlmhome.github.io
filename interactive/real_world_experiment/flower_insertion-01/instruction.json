@@ -1,0 +1,9 @@
+{
+    "flower_insertion": [
+        {
+            "step": 1,
+            "precise_instruction": "Insert the flower stem into the top opening of the vase.",
+            "vague_instruction": "Assemble the flower object."
+        }
+    ]
+}

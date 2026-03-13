@@ -1,0 +1,14 @@
+{
+    "block_building": [
+        {
+            "step": 1,
+            "precise_instruction": "Attach the large square top plate across the four upright blocks to connect them at the top.",
+            "vague_instruction": "Assemble the block object."
+        },
+        {
+            "step": 2,
+            "precise_instruction": "Attach the tall block vertically onto the back edge of the top platform.",
+            "vague_instruction": "Assemble the block object."
+        }
+    ]
+}

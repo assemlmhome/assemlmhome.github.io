@@ -1,0 +1,9 @@
+{
+    "plug_insertion": [
+        {
+            "step": 1,
+            "precise_instruction": "Mount the rectangular insulating block with the circular hole upright onto the rear end of the plug base.",
+            "vague_instruction": "Assemble the plug object."
+        }
+    ]
+}
