@@ -409,15 +409,15 @@ window.addEventListener('DOMContentLoaded', function () {
         .then(function (pc) {
           if (token !== requestToken || activeStepIdx !== idx) return;
           if (!pc || !pc.base) {
-            renderSet(viewers.gt, null, null, 0xaaaaaa, 0xff0000);
-            renderSet(viewers.pred, null, null, 0xaaaaaa, 0x00ff00);
+            renderSet(viewers.gt, null, null, 0x4dabf7, 0xff0000);
+            renderSet(viewers.pred, null, null, 0x4dabf7, 0x00ff00);
             setStatus('Point clouds are not available for this step.');
             return;
           }
           // GT: Gray base + Red GT
-          renderSet(viewers.gt, pc.base, pc.gt, 0xaaaaaa, 0xff0000);
+          renderSet(viewers.gt, pc.base, pc.gt, 0x4dabf7, 0xff0000);
           // Pred: Gray base + Green Pred
-          renderSet(viewers.pred, pc.base, pc.pred, 0xaaaaaa, 0x00ff00);
+          renderSet(viewers.pred, pc.base, pc.pred, 0x4dabf7, 0x00ff00);
           setStatus('');
         })
         .catch(function (err) {
@@ -1341,11 +1341,11 @@ window.addEventListener('DOMContentLoaded', function () {
         return pointcloudState.cache[cacheKey];
       }
 
-      function renderPointcloudSet(viewer, partA, partB) {
+      function renderPointcloudSet(viewer, partA, partB, colorA, colorB) {
         if (!viewer) return;
         clearPointcloudPoints(viewer);
-        var partAObj = arrayToPoints(partA, 0xff6b6b);
-        var partBObj = arrayToPoints(partB, 0x4dabf7);
+        var partAObj = arrayToPoints(partA, typeof colorA === 'number' ? colorA : 0xff0000);
+        var partBObj = arrayToPoints(partB, typeof colorB === 'number' ? colorB : 0x4dabf7);
         if (partAObj) { viewer.scene.add(partAObj); viewer.points.push(partAObj); }
         if (partBObj) { viewer.scene.add(partBObj); viewer.points.push(partBObj); }
         fitPointcloudCamera(viewer);
@@ -1412,9 +1412,12 @@ window.addEventListener('DOMContentLoaded', function () {
         var predictionPartA = applyRotationAndTranslation(inputPartA, transform.predictionRotation, transform.translation);
         transform.predictionPartA = predictionPartA;
         transform.predictionValues = formatPredictionValues(transform.translation, transform.predictionRotation);
-        renderPointcloudSet(pointcloudViewers.target, sample.partA, sample.partB);
-        renderPointcloudSet(pointcloudViewers.input, inputPartA, null);
-        renderPointcloudSet(pointcloudViewers.prediction, null, sample.partB);
+        // Target: Blue assembled part + Red ground-truth (real) assembly part.
+        renderPointcloudSet(pointcloudViewers.target, sample.partA, sample.partB, 0xff0000, 0x4dabf7);
+        // Input: Gray input assembly-part point cloud.
+        renderPointcloudSet(pointcloudViewers.input, inputPartA, null, 0xaaaaaa, null);
+        // Assembled/base only: Blue.
+        renderPointcloudSet(pointcloudViewers.prediction, null, sample.partB, null, 0x4dabf7);
         updatePointcloudPredictionDisplay(transform.predictionValues);
         setPointcloudStatus('');
       }

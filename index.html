@@ -1066,8 +1066,9 @@
               Select an asset above to view point clouds.
             </div>
             <div class="interactive-pointcloud-legend" data-pointcloud-legend>
-              <span class="legend-item legend-item--red">Red: assembly part</span>
-              <span class="legend-item legend-item--blue">Blue: assembled part</span>
+              <span class="legend-item legend-item--blue">Blue: assembled part (already assembled)</span>
+              <span class="legend-item legend-item--gray">Gray: input assembly part point cloud</span>
+              <span class="legend-item legend-item--red">Red: ground-truth (real) assembly part</span>
             </div>
             <div class="interactive-pointcloud-status" data-pointcloud-status></div>
             <div class="interactive-pointcloud-controls">
@@ -1270,8 +1271,10 @@
               </p>
             </div>
             <div class="prediction-legend">
-              <span class="legend-item legend-item--red">Red: assembly part</span>
-              <span class="legend-item legend-item--blue">Blue: assembled part</span>
+              <span class="legend-item legend-item--blue">Blue: assembled part (already assembled)</span>
+              <span class="legend-item legend-item--gray">Gray: input assembly part point cloud</span>
+              <span class="legend-item legend-item--red">Red: ground truth (real)</span>
+              <span class="legend-item legend-item--green">Green: prediction</span>
             </div>
           </div>
 
@@ -1373,9 +1376,9 @@
               </p>
             </div>
             <div class="prediction-legend">
-              <span class="legend-item">Gray: assembled base</span>
-              <span class="legend-item">Red: ground truth</span>
-              <span class="legend-item">Green: prediction</span>
+              <span class="legend-item legend-item--blue">Blue: assembled base (already assembled)</span>
+              <span class="legend-item legend-item--red">Red: ground truth (real)</span>
+              <span class="legend-item legend-item--green">Green: prediction</span>
             </div>
           </div>
 

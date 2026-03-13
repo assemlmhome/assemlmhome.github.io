@@ -772,11 +772,49 @@ section.hero:first-of-type .hero-body {
 }
 
 .interactive-pointcloud-legend .legend-item--red::before {
-  background: #ff6b6b;
+  background: #ff0000;
 }
 
 .interactive-pointcloud-legend .legend-item--blue::before {
   background: #4dabf7;
+}
+
+.interactive-pointcloud-legend .legend-item--green::before {
+  background: #00ff00;
+}
+
+.interactive-pointcloud-legend .legend-item--gray::before {
+  background: #aaaaaa;
+}
+
+.prediction-legend .legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.prediction-legend .legend-item::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.prediction-legend .legend-item--blue::before {
+  background: #4dabf7;
+}
+
+.prediction-legend .legend-item--gray::before {
+  background: #aaaaaa;
+}
+
+.prediction-legend .legend-item--red::before {
+  background: #ff0000;
+}
+
+.prediction-legend .legend-item--green::before {
+  background: #00ff00;
 }
 
 .interactive-pointcloud-viewer {
