@@ -1700,6 +1700,13 @@ section.hero:first-of-type .hero-body {
   overflow: hidden;
 }
 
+.prediction-viewer canvas,
+.interactive-pointcloud-viewer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .realworld-media-grid {
   margin-top: 1.1rem;
   display: grid;

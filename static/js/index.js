@@ -218,7 +218,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var rect = viewer.container.getBoundingClientRect();
         var width = Math.max(1, Math.floor(rect.width));
         var height = Math.max(1, Math.floor(rect.height));
-        viewer.renderer.setSize(width, height, false);
+        viewer.renderer.setSize(width, height, true);
         viewer.camera.aspect = width / height;
         viewer.camera.updateProjectionMatrix();
       }
@@ -1057,7 +1057,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var rect = viewer.container.getBoundingClientRect();
         var w = Math.max(1, Math.floor(rect.width));
         var h = Math.max(1, Math.floor(rect.height));
-        viewer.renderer.setSize(w, h, false);
+        viewer.renderer.setSize(w, h, true);
         viewer.camera.aspect = w / h;
         viewer.camera.updateProjectionMatrix();
       }
@@ -2327,7 +2327,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var rect = viewer.container.getBoundingClientRect();
         var width = Math.max(1, Math.floor(rect.width));
         var height = Math.max(1, Math.floor(rect.height));
-        viewer.renderer.setSize(width, height, false);
+        viewer.renderer.setSize(width, height, true);
         viewer.camera.aspect = width / height;
         viewer.camera.updateProjectionMatrix();
       }
