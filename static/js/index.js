@@ -2133,6 +2133,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var thumbRow = section.querySelector('#prediction-thumb-row');
       var dotsContainer = section.querySelector('#prediction-dots');
       var status = section.querySelector('[data-prediction-status]');
+      var titleEl = section.querySelector('[data-prediction-title]');
       var sampleLabel = section.querySelector('[data-prediction-sample-label]');
       var categoryLabel = section.querySelector('[data-prediction-category-label]');
       var gtTransEl = section.querySelector('[data-prediction-gt-trans]');
@@ -2517,6 +2518,16 @@ window.addEventListener('DOMContentLoaded', function () {
       function switchPredictionCategory(cat) {
         activeCategory = cat;
         samples = allSamples.filter(function (s) { return s.group === cat; });
+
+        if (titleEl) {
+          var catTitleMap = {
+            daily: 'Daily Objects',
+            furniture: 'Furniture',
+            fragments: 'Fragments'
+          };
+          var prefix = catTitleMap[cat] || (cat ? (cat.charAt(0).toUpperCase() + cat.slice(1)) : '');
+          titleEl.textContent = (prefix ? (prefix + ' Predict Sample') : 'Predict Sample');
+        }
         
         section.querySelectorAll('[data-prediction-category]').forEach(function (btn) {
           btn.classList.toggle('is-active', btn.getAttribute('data-prediction-category') === cat);

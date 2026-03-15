@@ -95,8 +95,7 @@ body {
   object-fit: fit;
 }
 
-.publication-header .hero-body {
-}
+
 
 /* .publication-title {
     font-family: 'Google Sans', sans-serif;
@@ -160,8 +159,7 @@ body {
     height: 100%;
 }
 
-.publication-body img {
-}
+
 
 .results-carousel {
   overflow: hidden;
@@ -191,8 +189,7 @@ body {
   border-radius: 5px;
 }
 
-.interpolation-video-column {
-}
+
 
 .interpolation-panel .slider {
   margin: 0 !important;
@@ -233,6 +230,20 @@ body {
   gap: 0.75em;
   padding-top: 0.75em;
   flex-wrap: wrap;
+}
+
+.institution-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.institution-logo img {
+  height: 80px;
+  width: auto;
+  max-width: min(400px, 90vw);
+  object-fit: contain;
 }
 
 .button {
@@ -1104,6 +1115,10 @@ section.hero:first-of-type .hero-body {
 @media screen and (max-width: 600px) {
   .button-container {
     gap: 0.5em;
+  }
+  .institution-logo img {
+    height: 40px;
+    max-width: min(280px, 86vw);
   }
   .button {
     min-width: 100%;
