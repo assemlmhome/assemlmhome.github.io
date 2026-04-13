@@ -188,14 +188,17 @@
               <img src="media/logo.png" alt="Institution logo" />
             </div>
             <div class="button-container">
-              <a class="button" href="" rel="noopener" target="_blank"
-                ><i class="fa-light fa-file"></i>&nbsp;PDF (Coming Soon)</a
+              <a class="button" href="https://arxiv.org/pdf/2604.08983" rel="noopener" target="_blank"
+                ><i class="fa-light fa-file"></i>&nbsp;PDF</a
               >
-              <a class="button" href="" rel="noopener" target="_blank"
-                ><i class="ai ai-arxiv"></i>&nbsp;arXiv (Coming Soon)</a
+              <a class="button" href="https://arxiv.org/abs/2604.08983" rel="noopener" target="_blank"
+                ><i class="ai ai-arxiv"></i>&nbsp;arXiv</a
               >
               <a class="button" href="" rel="noopener" target="_blank"
                 ><i class="fa-light fa-film"></i>&nbsp;Video (Coming Soon)</a
+              >
+                <a class="button" href="" rel="noopener" target="_blank"
+                ><i class="fa-light fa-cube"></i>&nbsp;Model (Coming Soon)</a
               >
               <a class="button" href="https://github.com/TeleHuman/AssemLM" rel="noopener" target="_blank"
                 ><i class="fa-light fa-code"></i>&nbsp;Code</a
@@ -214,34 +217,7 @@
           <h2 class="title is-3 has-text-centered">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Spatial reasoning is a fundamental capability for embodied
-              intelligence, especially for fine-grained manipulation tasks such
-              as robotic assembly. While recent vision-language models (VLMs)
-              exhibit preliminary spatial awareness, they largely rely on coarse
-              2D perception and lack the ability to perform accurate reasoning
-              over 3D geometry, which is crucial for precise assembly
-              operations. To address this limitation, we propose AssemLM, a
-              spatial multimodal large language model tailored for robotic
-              assembly. AssemLM integrates assembly manuals, point clouds, and
-              textual instructions to reason about and predict task-critical 6D
-              assembly poses, enabling explicit geometric understanding
-              throughout the assembly process. To effectively bridge raw 3D
-              perception and high-level reasoning, we adopt a specialized point
-              cloud encoder to capture fine-grained geometric and rotational
-              features, which are then integrated into the multimodal language
-              model to support accurate 3D spatial reasoning for assembly tasks.
-              In addition, we construct AssemBench, a large-scale dataset and
-              benchmark for assembly-oriented spatial reasoning, comprising over
-              900K multimodal samples with precise 6D pose annotations.
-              AssemBench extends spatial reasoning evaluation beyond 2D and
-              grounding tasks into full 3D geometric inference, filling a
-              critical gap in existing embodied AI benchmarks. Extensive
-              experiments demonstrate that AssemLM achieves state-of-the-art
-              performance in 6D pose reasoning across diverse assembly
-              scenarios. Furthermore, real-robot evaluations show that our model
-              effectively supports long-horizon, fine-grained assembly
-              execution, validating its practical applicability in real-world
-              robotic systems.
+              Spatial reasoning is a fundamental capability for embodied intelligence, especially for fine-grained manipulation tasks such as robotic assembly. While recent vision-language models (VLMs) exhibit preliminary spatial awareness, they largely rely on coarse 2D perception and lack the ability to perform accurate reasoning over 3D geometry, which is crucial for precise assembly operations. To address this limitation, we propose AssemLM, a spatial multimodal large language model tailored for robotic assembly. AssemLM integrates assembly manuals, point clouds, and textual instructions to reason about and predict task-critical 6D assembly poses, enabling explicit geometric understanding throughout the assembly process. To effectively bridge raw 3D perception and high-level reasoning, we adopt a specialized point cloud encoder to capture fine-grained geometric and rotational features, which are then integrated into the multimodal language model to support accurate 3D spatial reasoning for assembly tasks. In addition, we construct AssemBench, a large-scale dataset and benchmark for assembly-oriented spatial reasoning, comprising over 900K multimodal samples with precise 6D pose annotations. AssemBench extends spatial reasoning evaluation beyond 2D and grounding tasks into full 3D geometric inference, filling a critical gap in existing embodied AI benchmarks. Extensive experiments demonstrate that AssemLM achieves state-of-the-art performance in 6D pose reasoning across diverse assembly scenarios. Furthermore, real-robot evaluations show that our model can support fine-grained and multi-step assembly execution in real-world settings, demonstrating its potential for robotic assembly applications. 
             </p>
           </div>
         </div>
