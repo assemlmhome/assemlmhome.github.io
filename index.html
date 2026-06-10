@@ -70,40 +70,36 @@
     <script src="./static/js/index.js"></script>
   </head>
 
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a
-        role="button"
-        class="navbar-burger"
-        aria-label="menu"
-        aria-expanded="false"
-      >
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start" style="flex-grow: 1; justify-content: center">
-        <a class="navbar-item" href="">
-          <span class="icon">
-            <i class="fas fa-home"></i>
-          </span>
-        </a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"> More Research </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="https://openhumanoidgen.github.io/">
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="assem-logo" href="#top" aria-label="AssemLM home">AssemLM</a>
+      <nav class="assem-nav-links" aria-label="Page navigation">
+        <a href="#abstract">Abstract</a>
+        <a href="#interactive-results">AssemBench</a>
+        <a href="#prediction-results">Prediction</a>
+        <a href="#real-world-results">Real World</a>
+        <details class="assem-nav-more">
+          <summary class="assem-nav-more-summary">More Research</summary>
+          <div class="assem-nav-dropdown">
+            <a href="https://openhumanoidgen.github.io/" rel="noopener" target="_blank">
               HumanoidGen
             </a>
           </div>
-        </div>
-      </div>
+        </details>
+      </nav>
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        type="button"
+      >
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
+  </header>
 
-  <section class="hero">
+  <section class="hero" id="top">
     <div class="hero-body">
       <div class="container is-fullhd">
         <div class="columns is-centered">
