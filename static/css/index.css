@@ -2103,3 +2103,249 @@ section.hero:first-of-type .hero-body {
     grid-template-columns: 1fr;
   }
 }
+
+/* AssemLM video teaser, aligned with the VISTA hero treatment. */
+.site-header:not(.is-scrolled):not(.is-menu-open) {
+  background: rgba(2, 6, 23, 0.22);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(2, 6, 23, 0.2);
+}
+
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-logo,
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-nav-links > a,
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-nav-more-summary,
+.site-header:not(.is-scrolled):not(.is-menu-open) .nav-toggle {
+  color: rgba(248, 250, 252, 0.98);
+}
+
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-nav-links > a:hover,
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-nav-more-summary:hover,
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-logo:hover {
+  color: #ffffff;
+}
+
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-nav-links > a::after,
+.site-header:not(.is-scrolled):not(.is-menu-open) .assem-nav-more-summary::after {
+  background: #93c5fd;
+}
+
+.assem-video-hero {
+  position: relative;
+  min-height: 105vh;
+  min-height: 105dvh;
+  overflow: hidden;
+  background: #020617;
+}
+
+.assem-video-hero .hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.assem-video-hero .hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.34);
+  pointer-events: none;
+}
+
+.assem-video-hero .hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+
+.assem-video-hero .hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.32) 0%,
+    rgba(2, 6, 23, 0.22) 40%,
+    rgba(2, 6, 23, 0.68) 100%
+  );
+  pointer-events: none;
+}
+
+.site-header + .assem-video-hero .hero-body,
+section.assem-video-hero:first-of-type .hero-body {
+  position: relative;
+  z-index: 2;
+  min-height: 105vh;
+  min-height: 105dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--assem-header-height) + 1rem) 1.5rem 1.5rem;
+  pointer-events: none;
+}
+
+.assem-video-hero .container,
+.assem-video-hero .columns,
+.assem-video-hero .column {
+  width: 100%;
+}
+
+.assem-video-hero .column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 1.85rem);
+  max-width: 52rem;
+  margin: 0 auto;
+  pointer-events: auto;
+}
+
+.assem-video-hero .publication-authors,
+.assem-video-hero .affiliation,
+.assem-video-hero .affiliation-note,
+.assem-video-hero .institution-logo {
+  display: none;
+}
+
+.teaser-brand {
+  margin: 0 0 0.75rem;
+  color: #f8fafc;
+  font-size: 5.4rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow:
+    0 2px 18px rgba(2, 6, 23, 0.72),
+    0 1px 2px rgba(2, 6, 23, 0.8);
+}
+
+.teaser-desc {
+  margin: 0;
+  max-width: 44rem;
+  color: #f8fafc;
+  font-size: 1.28rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-shadow:
+    0 2px 18px rgba(2, 6, 23, 0.72),
+    0 1px 2px rgba(2, 6, 23, 0.8);
+}
+
+.teaser-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 9.25rem);
+  justify-content: center;
+  gap: 0.75rem 0.85rem;
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
+.teaser-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.72rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(2, 6, 23, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.teaser-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.62);
+  color: #ffffff;
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.teaser-btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
+.assem-paper-intro {
+  padding-top: 4.25rem;
+  padding-bottom: 3rem;
+  background: #ffffff;
+}
+
+.assem-paper-intro .publication-title {
+  max-width: 66rem;
+  margin: 0 auto 1.2rem;
+  font-size: 3.4rem;
+}
+
+.assem-paper-intro .institution-logo {
+  margin-top: 1rem;
+}
+
+#paper {
+  scroll-margin-top: calc(var(--assem-header-height) + 1.5rem);
+}
+
+@media screen and (max-width: 720px) {
+  .teaser-brand {
+    font-size: 4.2rem;
+  }
+
+  .teaser-desc {
+    font-size: 1.16rem;
+  }
+
+  .teaser-actions {
+    grid-template-columns: repeat(2, 9.25rem);
+  }
+
+  .assem-paper-intro .publication-title {
+    font-size: 2.65rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .site-header + .assem-video-hero .hero-body,
+  section.assem-video-hero:first-of-type .hero-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .teaser-actions {
+    grid-template-columns: 1fr;
+    max-width: 14rem;
+  }
+
+  .teaser-brand {
+    font-size: 3.2rem;
+  }
+
+  .teaser-desc {
+    font-size: 1.05rem;
+  }
+
+  .assem-paper-intro {
+    padding-top: 3rem;
+  }
+
+  .assem-paper-intro .publication-title {
+    font-size: 2.1rem;
+  }
+}

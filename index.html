@@ -99,73 +99,31 @@
     </div>
   </header>
 
-  <section class="hero" id="top">
+  <section class="hero teaser assem-video-hero has-video" id="top" aria-label="AssemLM teaser">
+    <div class="hero-media">
+      <video
+        class="hero-video"
+        id="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      >
+      <!-- poster="media/preview-card-1080p.png" -->
+        <source src="media/main.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-vignette" aria-hidden="true"></div>
+    </div>
     <div class="hero-body">
       <div class="container is-fullhd">
         <div class="columns is-centered">
           <div class="column is-10 has-text-centered">
-            <h1 class="title is-1 publication-title">
-              AssemLM: Spatial Reasoning Multimodal Large Language Models for
-              Robotic Assembly
-            </h1>
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"
-                ><a
-                  href="https://scholar.google.com/citations?user=dlbY-nkAAAAJ&hl=zh-CN"
-                  rel="noopener"
-                  target="_blank"
-                  >Zhi Jing</a
-                ><sup>1,2</sup>,</span
-              >
-              <span class="author-block"
-                ><a
-                  href="https://scholar.google.com/citations?user=L3_Wl_0AAAAJ&hl=zh-CN"
-                  rel="noopener"
-                  target="_blank"
-                  >Jinbin Qiao</a
-                ><sup>2,3</sup>,</span
-              >
-              <span class="author-block"
-                ><a
-                  href="https://scholar.google.com/citations?user=QXCaKP4AAAAJ&hl=zh-CN"
-                  rel="noopener"
-                  target="_blank"
-                  >Ouyang Lu</a
-                ><sup>2,4</sup>,</span
-              >
-              <span class="author-block"
-                ><a
-                  href="https://scholar.google.com/citations?user=AA4WipQAAAAJ&hl=en"
-                  rel="noopener"
-                  target="_blank"
-                  >Jicong Ao</a
-                ><sup>2</sup>,</span
-              >
-              <span class="author-block"
-                ><a
-                  href="https://www.cityu.edu.hk/stfprofile/shuanqiu.htm"
-                  rel="noopener"
-                  target="_blank"
-                  >Shuang Qiu</a
-                ><sup>5</sup>,</span
-              >
-              <span class="author-block"
-                ><a
-                  href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en"
-                  rel="noopener"
-                  target="_blank"
-                  >Yu-Gang Jiang</a
-                ><sup>1,*</sup>,</span
-              >
-              <span class="author-block"
-                ><a
-                  href="https://baichenjia.github.io/"
-                  rel="noopener"
-                  target="_blank"
-                  >Chenjia Bai</a
-                ><sup>2,*</sup></span
-              >
-            </div>
+            <h1 class="teaser-brand" aria-label="AssemLM">AssemLM</h1>
+            <p class="teaser-desc">
+              Spatial Reasoning Multimodal Large Language Models for Robotic Assembly
+            </p>
             <div class="is-size-5 affiliation">
               <sup>1</sup>Fudan University<sup>†</sup>, <sup>2</sup>Institute of
               Artificial Intelligence (TeleAI), China Telecom<sup>†</sup>,
@@ -183,22 +141,23 @@
             <div class="institution-logo">
               <img src="media/logo.png" alt="Institution logo" />
             </div>
-            <div class="button-container">
-              <a class="button" href="https://arxiv.org/pdf/2604.08983" rel="noopener" target="_blank"
-                ><i class="fa-light fa-file"></i>&nbsp;PDF</a
-              >
-              <a class="button" href="https://arxiv.org/abs/2604.08983" rel="noopener" target="_blank"
-                ><i class="ai ai-arxiv"></i>&nbsp;arXiv</a
-              >
-              <a class="button" href="" rel="noopener" target="_blank"
-                ><i class="fa-light fa-film"></i>&nbsp;Video (Coming Soon)</a
-              >
-                <a class="button" href="" rel="noopener" target="_blank"
-                ><i class="fa-light fa-cube"></i>&nbsp;Model (Coming Soon)</a
-              >
-              <a class="button" href="https://github.com/TeleHuman/AssemLM" rel="noopener" target="_blank"
-                ><i class="fa-light fa-code"></i>&nbsp;Code</a
-              >
+            <div class="teaser-actions" role="group" aria-label="Paper and resources">
+              <a class="teaser-btn" href="https://arxiv.org/abs/2604.08983" id="link-paper" rel="noopener noreferrer" target="_blank">
+                <svg class="teaser-btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
+                <span>Paper</span>
+              </a>
+              <a class="teaser-btn" href="https://github.com/TeleHuman/AssemLM" id="link-code" rel="noopener noreferrer" target="_blank">
+                <svg class="teaser-btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.17 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                <span>Code</span>
+              </a>
+              <a class="teaser-btn" href="https://huggingface.co/datasets/TeleEmbodied/AssemLM/tree/main" id="link-dataset" rel="noopener noreferrer" target="_blank">
+                <svg class="teaser-btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                <span>Dataset</span>
+              </a>
+              <a class="teaser-btn" href="https://huggingface.co/TeleEmbodied/AssemLM-V1/tree/main" id="link-models" rel="noopener noreferrer" target="_blank">
+                <svg class="teaser-btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+                <span>Models</span>
+              </a>
             </div>
           </div>
         </div>
@@ -206,7 +165,93 @@
     </div>
   </section>
 
-    <section class="section" id="abstract">
+  <section class="section assem-paper-intro" id="paper" aria-label="Paper information">
+    <div class="container is-fullhd">
+      <div class="columns is-centered">
+        <div class="column is-10 has-text-centered">
+          <h2 class="title is-1 publication-title">
+            AssemLM: Spatial Reasoning Multimodal Large Language Models for
+            Robotic Assembly
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"
+              ><a
+                href="https://scholar.google.com/citations?user=dlbY-nkAAAAJ&hl=zh-CN"
+                rel="noopener"
+                target="_blank"
+                >Zhi Jing</a
+              ><sup>1,2</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://scholar.google.com/citations?user=L3_Wl_0AAAAJ&hl=zh-CN"
+                rel="noopener"
+                target="_blank"
+                >Jinbin Qiao</a
+              ><sup>2,3</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://scholar.google.com/citations?user=QXCaKP4AAAAJ&hl=zh-CN"
+                rel="noopener"
+                target="_blank"
+                >Ouyang Lu</a
+              ><sup>2,4</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://scholar.google.com/citations?user=AA4WipQAAAAJ&hl=en"
+                rel="noopener"
+                target="_blank"
+                >Jicong Ao</a
+              ><sup>2</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://www.cityu.edu.hk/stfprofile/shuanqiu.htm"
+                rel="noopener"
+                target="_blank"
+                >Shuang Qiu</a
+              ><sup>5</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en"
+                rel="noopener"
+                target="_blank"
+                >Yu-Gang Jiang</a
+              ><sup>1,*</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://baichenjia.github.io/"
+                rel="noopener"
+                target="_blank"
+                >Chenjia Bai</a
+              ><sup>2,*</sup></span
+            >
+          </div>
+          <div class="is-size-5 affiliation">
+            <sup>1</sup>Fudan University<sup>&dagger;</sup>,
+            <sup>2</sup>Institute of Artificial Intelligence (TeleAI), China Telecom<sup>&dagger;</sup>,
+            <br />
+            <sup>3</sup>Tianjin University,
+            <sup>4</sup>Northwestern Polytechnical University,
+            <sup>5</sup>City University of Hong Kong
+          </div>
+          <div class="affiliation-note">
+            <sup>*</sup> Equal advising &nbsp;|&nbsp; <sup>&dagger;</sup> Equally
+            leading organizations
+          </div>
+          <div class="institution-logo">
+            <img src="media/logo.png" alt="Institution logo" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="abstract">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
         <div class="column">
