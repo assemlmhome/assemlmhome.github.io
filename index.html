@@ -42,6 +42,8 @@
     <meta content="media/preview-card-1080p.jpg" name="twitter:image" />
     <meta content="AssemLM project preview card" name="twitter:image:alt" />
 
+    <link rel="icon" type="image/png" href="media/web_logo.png" />
+    <link rel="apple-touch-icon" href="media/web_logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -71,7 +73,10 @@
 
   <header class="site-header" id="site-header">
     <div class="header-inner">
-      <a class="assem-logo" href="#top" aria-label="AssemLM home">AssemLM</a>
+      <a class="assem-logo" href="#top" aria-label="AssemLM home">
+        <img class="assem-logo-mark" src="media/web_logo.png" alt="" aria-hidden="true" />
+        <span>AssemLM</span>
+      </a>
       <nav class="assem-nav-links" aria-label="Page navigation">
         <a href="#paper">Paper</a>
         <a href="#abstract">Abstract</a>
@@ -121,7 +126,10 @@
       <div class="container is-fullhd">
         <div class="columns is-centered">
           <div class="column is-10 has-text-centered">
-            <h1 class="teaser-brand" aria-label="AssemLM">AssemLM</h1>
+            <h1 class="teaser-brand" aria-label="AssemLM">
+              <!-- <img class="teaser-brand-logo" src="media/web_logo.png" alt="" aria-hidden="true" /> -->
+              <span>AssemLM</span>
+            </h1>
             <p class="teaser-desc">
               A Spatial Reasoning Multimodal Large Language Model<br />
               for Robotic Assembly
