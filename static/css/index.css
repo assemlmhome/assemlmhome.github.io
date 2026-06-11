@@ -241,7 +241,8 @@ body {
 #abstract,
 #interactive-results,
 #prediction-results,
-#real-world-results {
+#real-world-results,
+#citation {
   scroll-margin-top: calc(var(--assem-header-height) + 1.5rem);
 }
 
@@ -2438,9 +2439,37 @@ textarea,
   background: #ffffff;
 }
 
+#citation {
+  background: #f6f8fb;
+}
+
 #abstract,
 #interactive-results,
 #prediction-results,
-#real-world-results {
+#real-world-results,
+#citation {
   border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.citation-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.citation-bibtex {
+  margin: 1.25rem auto 0;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 0.9rem !important;
+  line-height: 1.55 !important;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.citation-bibtex code {
+  font-family: var(--assem-mono);
+  white-space: pre;
 }
