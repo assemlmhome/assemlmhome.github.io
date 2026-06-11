@@ -3,11 +3,15 @@ html {
 }
 
 body {
-  /* font-family: 'Noto Sans', sans-serif; */
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
+  color: var(--assem-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 :root {
+  --assem-font: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --assem-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --assem-header-height: 64px;
   --assem-header-bg: rgba(255, 255, 255, 0.78);
   --assem-header-bg-solid: rgba(255, 255, 255, 0.96);
@@ -79,9 +83,9 @@ body {
   align-items: center;
   min-height: 2.25rem;
   color: var(--assem-muted);
-  font: inherit;
+  font-family: var(--assem-font);
   font-size: 0.96rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0;
   line-height: 1.2;
   text-decoration: none;
@@ -110,8 +114,19 @@ body {
 .assem-nav-more-summary:hover,
 .assem-nav-more-summary:focus-visible {
   color: var(--assem-text);
+  font-weight: 700;
   opacity: 1;
   transform: translateY(-1px);
+}
+
+.assem-nav-links a.is-active {
+  color: var(--assem-text);
+  font-weight: 800;
+}
+
+.assem-nav-links a.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .assem-nav-links a:hover::after,
@@ -138,6 +153,7 @@ body {
   position: absolute;
   top: calc(100% + 0.65rem);
   right: 0;
+  box-sizing: border-box;
   min-width: 11.5rem;
   padding: 0.55rem;
   border: 1px solid var(--assem-header-border);
@@ -159,10 +175,15 @@ body {
 }
 
 .assem-nav-dropdown a {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
   width: 100%;
+  max-width: 100%;
   min-height: 2.5rem;
   padding: 0 0.75rem;
   border-radius: 8px;
+  white-space: nowrap;
 }
 
 .assem-nav-dropdown a:hover,
@@ -362,11 +383,11 @@ body {
 }
 
 /* .publication-title {
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
   color: #8C1515;
 } */
 .publication-title {
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
   color: #1f4fa3;
   background: linear-gradient(135deg, #7fb6ff 0%, #3f7fe8 40%, #2457b8 72%, #193f8f 100%);
   -webkit-background-clip: text;
@@ -392,18 +413,18 @@ body {
 
 
 /* .publication-title {
-    font-family: 'Google Sans', sans-serif;
+    font-family: var(--assem-font);
 } */
 
 
 .publication-title {
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
   font-weight: 800;
   line-height: 1.08;
 }
 
 .publication-authors {
-    font-family: 'Google Sans', sans-serif;
+    font-family: var(--assem-font);
 }
 
 .publication-venue {
@@ -542,7 +563,7 @@ body {
 
 .button {
   color: #53565A;
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
   border-radius: 0.6em;
   min-width: 9em;
   padding: 0.7em 1.2em;
@@ -598,7 +619,7 @@ body {
 .affiliation {
   display: inline-block;
   color: #2c2c2c;
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
   padding-top: 0.8em;
   /* padding-bottom: 0.5em; */
   text-align: center;
@@ -607,7 +628,7 @@ body {
 .affiliation-note {
   display: block;
   color: #828282;
-  font-family: 'Google Sans', sans-serif;
+  font-family: var(--assem-font);
   font-size: 1.2em;
   margin-top: 0.3em;
   padding-bottom: 0.8em;
@@ -626,7 +647,7 @@ hr.rounded {
 }
 
 .bibtex {
-  font-family: "Courier", monospace;
+  font-family: var(--assem-mono);
   font-size: 0.7em !important;
   color: #2f2f2f;
   background-color: #f2f2f2;
@@ -706,7 +727,7 @@ section.hero:first-of-type .hero-body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.6));
   border: 1px solid rgba(255, 255, 255, 0.7);
   color: #1d2d48;
-  font-family: 'Source Sans 3', 'Noto Sans', sans-serif;
+  font-family: var(--assem-font);
   font-weight: 800;
   font-size: 0.9rem;
   letter-spacing: 0.03em;
@@ -1036,7 +1057,7 @@ section.hero:first-of-type .hero-body {
 
 .interactive-pointcloud-prediction-values {
   margin-top: 0.4rem;
-  font-family: 'Courier New', monospace;
+  font-family: var(--assem-mono);
   font-size: 0.82rem;
   line-height: 1.45;
   color: #1c2430;
@@ -1263,7 +1284,7 @@ section.hero:first-of-type .hero-body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.28));
   border: 1px solid rgba(255, 255, 255, 0.6);
   color: #1d2d48;
-  font-family: 'Source Sans 3', 'Noto Sans', sans-serif;
+  font-family: var(--assem-font);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1715,7 +1736,7 @@ section.hero:first-of-type .hero-body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.28));
   border: 1px solid rgba(255, 255, 255, 0.6);
   color: #1d2d48;
-  font-family: 'Source Sans 3', 'Noto Sans', sans-serif;
+  font-family: var(--assem-font);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1973,7 +1994,7 @@ section.hero:first-of-type .hero-body {
 
 .prediction-pose-values {
   margin-top: 0.3rem;
-  font-family: 'Courier New', monospace;
+  font-family: var(--assem-mono);
   font-size: 0.82rem;
   line-height: 1.5;
   color: #1c2430;
@@ -2348,4 +2369,78 @@ section.assem-video-hero:first-of-type .hero-body {
   .assem-paper-intro .publication-title {
     font-size: 2.1rem;
   }
+}
+
+/* Unified typography and academic section bands. */
+body,
+button,
+input,
+select,
+textarea,
+.title,
+.content,
+.publication-title,
+.publication-authors,
+.affiliation,
+.affiliation-note,
+.button,
+.assem-logo,
+.assem-nav-links,
+.teaser-brand,
+.teaser-desc,
+.interactive-instructions,
+.interactive-panel,
+.interactive-card,
+.interactive-thumb,
+.interactive-left-label,
+.interactive-step-button,
+.interactive-pointcloud,
+.prediction-visualization-intro,
+.prediction-category-selector,
+.prediction-browser,
+.prediction-panel,
+.prediction-thumb,
+.prediction-pose-card,
+.prediction-view-block,
+.realworld-media,
+.realworld-instruction-text {
+  font-family: var(--assem-font);
+}
+
+.bibtex,
+.prediction-pose-values,
+.interactive-pointcloud-prediction-values,
+.interactive-pointcloud-prediction-tokens {
+  font-family: var(--assem-mono);
+}
+
+.section {
+  transition: background-color 0.25s ease;
+}
+
+#paper {
+  background: #ffffff;
+}
+
+#abstract {
+  background: #f6f8fb;
+}
+
+#interactive-results {
+  background: #ffffff;
+}
+
+#prediction-results {
+  background: #f7f9fc;
+}
+
+#real-world-results {
+  background: #ffffff;
+}
+
+#abstract,
+#interactive-results,
+#prediction-results,
+#real-world-results {
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
 }

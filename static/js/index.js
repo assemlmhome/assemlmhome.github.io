@@ -15,6 +15,10 @@ window.addEventListener('DOMContentLoaded', function () {
     navLinks.classList.remove('is-open');
     navToggle.setAttribute('aria-expanded', 'false');
     if (siteHeader) siteHeader.classList.remove('is-menu-open');
+    closeMoreResearch();
+  }
+
+  function closeMoreResearch() {
     if (moreResearch) moreResearch.removeAttribute('open');
   }
 
@@ -41,6 +45,63 @@ window.addEventListener('DOMContentLoaded', function () {
         closeNavMenu();
       }
     });
+  }
+
+  if (moreResearch) {
+    moreResearch.addEventListener('focusout', function (event) {
+      if (!event.relatedTarget || !moreResearch.contains(event.relatedTarget)) {
+        closeMoreResearch();
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!moreResearch.contains(event.target)) {
+        closeMoreResearch();
+      }
+    });
+  }
+
+  var navSectionLinks = navLinks
+    ? Array.prototype.slice.call(navLinks.querySelectorAll('a[href^="#"]'))
+    : [];
+  var navTargets = navSectionLinks
+    .map(function (link) {
+      var id = link.getAttribute('href').slice(1);
+      return {
+        id: id,
+        link: link,
+        section: document.getElementById(id)
+      };
+    })
+    .filter(function (item) {
+      return item.section;
+    });
+
+  function setActiveNav(id) {
+    navTargets.forEach(function (item) {
+      item.link.classList.toggle('is-active', item.id === id);
+    });
+  }
+
+  function updateActiveNav() {
+    if (!navTargets.length) return;
+    var headerOffset = siteHeader ? siteHeader.offsetHeight : 0;
+    var triggerLine = headerOffset + Math.round(window.innerHeight * 0.32);
+    var activeId = '';
+
+    navTargets.forEach(function (item) {
+      if (item.section.getBoundingClientRect().top <= triggerLine) {
+        activeId = item.id;
+      }
+    });
+
+    setActiveNav(activeId);
+  }
+
+  if (navTargets.length) {
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    window.addEventListener('resize', updateActiveNav);
+    updateActiveNav();
   }
 
   function initRealWorldExperimentsVisualization() {

@@ -3,20 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta
-      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly."
+      content="AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly."
       name="description"
     />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>
-      AssemLM | Spatial Reasoning Multimodal Large Language Models for Robotic
-      Assembly
+      AssemLM | A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly
     </title>
     <meta
-      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly"
+      content="AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly"
       property="og:title"
     />
     <meta
-      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly."
+      content="AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly."
       property="og:description"
     />
     <meta content="website" property="og:type" />
@@ -32,19 +31,21 @@
     <meta content="AssemLM project preview card" property="og:image:alt" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta
-      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly"
+      content="AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly"
       name="twitter:title"
     />
 
     <meta
-      content="AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly."
+      content="AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly."
       name="twitter:description"
     />
     <meta content="media/preview-card-1080p.jpg" name="twitter:image" />
     <meta content="AssemLM project preview card" name="twitter:image:alt" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css?family=Google+Sans|  Noto+Sans|Castoro"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link href="./static/css/bulma.min.css" rel="stylesheet" />
@@ -56,8 +57,6 @@
       rel="stylesheet"
     />
     <link href="./static/css/index.css" rel="stylesheet" />
-    <link href="./static/source_serif_4.css" rel="stylesheet" />
-    <link href="./static/source_sans_3.css" rel="stylesheet" />
     <link href="./static/academicons.min.css" rel="stylesheet" />
     <link href="./static/fontawesome/css/fontawesome.css" rel="stylesheet" />
     <link href="./static/fontawesome/css/brands.css" rel="stylesheet" />
@@ -74,6 +73,7 @@
     <div class="header-inner">
       <a class="assem-logo" href="#top" aria-label="AssemLM home">AssemLM</a>
       <nav class="assem-nav-links" aria-label="Page navigation">
+        <a href="#paper">Paper</a>
         <a href="#abstract">Abstract</a>
         <a href="#interactive-results">AssemBench</a>
         <a href="#prediction-results">Prediction</a>
@@ -122,7 +122,8 @@
           <div class="column is-10 has-text-centered">
             <h1 class="teaser-brand" aria-label="AssemLM">AssemLM</h1>
             <p class="teaser-desc">
-              Spatial Reasoning Multimodal Large Language Models for Robotic Assembly
+              A Spatial Reasoning Multimodal Large Language Model<br />
+              for Robotic Assembly
             </p>
             <div class="is-size-5 affiliation">
               <sup>1</sup>Fudan University<sup>†</sup>, <sup>2</sup>Institute of
@@ -131,7 +132,8 @@
               <sup>3</sup>Tianjin University, <sup>4</sup>Northwestern
               Polytechnical University,
 
-              <sup>5</sup>City University of Hong Kong
+              <sup>5</sup>Tsinghua University,
+              <sup>6</sup>City University of Hong Kong
             </div>
             <!-- <span class="author-block"><sup>†</sup>Equally leading organizations&nbsp</span> -->
             <div class="affiliation-note">
@@ -170,8 +172,7 @@
       <div class="columns is-centered">
         <div class="column is-10 has-text-centered">
           <h2 class="title is-1 publication-title">
-            AssemLM: Spatial Reasoning Multimodal Large Language Models for
-            Robotic Assembly
+            AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly
           </h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block"
@@ -212,6 +213,14 @@
                 rel="noopener"
                 target="_blank"
                 >Shuang Qiu</a
+              ><sup>6</sup>,</span
+            >
+            <span class="author-block"
+              ><a
+                href="https://hxu.rocks/"
+                rel="noopener"
+                target="_blank"
+                >Huazhe Xu</a
               ><sup>5</sup>,</span
             >
             <span class="author-block"
@@ -237,7 +246,8 @@
             <br />
             <sup>3</sup>Tianjin University,
             <sup>4</sup>Northwestern Polytechnical University,
-            <sup>5</sup>City University of Hong Kong
+            <sup>5</sup>Tsinghua University,
+            <sup>6</sup>City University of Hong Kong
           </div>
           <div class="affiliation-note">
             <sup>*</sup> Equal advising &nbsp;|&nbsp; <sup>&dagger;</sup> Equally
@@ -258,7 +268,12 @@
           <h2 class="title is-3 has-text-centered">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Spatial reasoning is a fundamental capability for embodied intelligence, especially for fine-grained manipulation tasks such as robotic assembly. While recent vision-language models (VLMs) exhibit preliminary spatial awareness, they largely rely on coarse 2D perception and lack the ability to perform accurate reasoning over 3D geometry, which is crucial for precise assembly operations. To address this limitation, we propose AssemLM, a spatial multimodal large language model tailored for robotic assembly. AssemLM integrates assembly manuals, point clouds, and textual instructions to reason about and predict task-critical 6D assembly poses, enabling explicit geometric understanding throughout the assembly process. To effectively bridge raw 3D perception and high-level reasoning, we adopt a specialized point cloud encoder to capture fine-grained geometric and rotational features, which are then integrated into the multimodal language model to support accurate 3D spatial reasoning for assembly tasks. In addition, we construct AssemBench, a large-scale dataset and benchmark for assembly-oriented spatial reasoning, comprising over 900K multimodal samples with precise 6D pose annotations. AssemBench extends spatial reasoning evaluation beyond 2D and grounding tasks into full 3D geometric inference, filling a critical gap in existing embodied AI benchmarks. Extensive experiments demonstrate that AssemLM achieves state-of-the-art performance in 6D pose reasoning across diverse assembly scenarios. Furthermore, real-robot evaluations show that our model can support fine-grained and multi-step assembly execution in real-world settings, demonstrating its potential for robotic assembly applications. 
+              Spatial reasoning is a fundamental capability for embodied intelligence, especially for fine-grained manipulation tasks such as robotic assembly.
+              Recent methods based on vision-language models (VLMs) largely rely on coarse 2D perception and struggle to perform accurate reasoning over complex 3D geometry.
+              To address this limitation, we propose AssemLM, a spatial multimodal large language model for robotic assembly that integrates assembly manuals, point clouds, and textual instructions to predict task-critical 6D assembly poses with explicit geometric understanding. 
+              To bridge raw 3D perception and high-level linguistic reasoning, AssemLM employs a specialized point cloud encoder to extract fine-grained geometric and rotational features for accurate 3D spatial reasoning in assembly tasks.
+              In addition, we introduce AssemBench, a large-scale benchmark for assembly-oriented spatial reasoning with over 900K multimodal samples and precise 6D pose annotations, extending evaluation from 2D grounding to full 3D geometric inference.
+              Extensive experiments and real-robot evaluations demonstrate that AssemLM achieves state-of-the-art 6D pose reasoning performance and effectively supports fine-grained, multi-step assembly tasks in real-world settings. Code, models, and the AssemBench dataset will be made publicly available.
             </p>
           </div>
         </div>
@@ -1017,7 +1032,7 @@
         >
           <div class="interactive-manual-overview" data-manual-overview></div>
           <h3 class="title is-5">
-            Assembly Manual (Step <span data-manual-step-label>1</span>)
+            Assembly Manuals (Step <span data-manual-step-label>1</span>)
             <span aria-hidden="true" class="hint-banner hint-banner--zoom"
               >Hover to zoom</span
             >
@@ -1080,7 +1095,7 @@
           </div>
           <div class="interactive-pointcloud" data-pointcloud-panel>
             <h4 class="title is-6">
-              Point Cloud (Step <span data-pointcloud-step-label>1</span>)
+              Point Clouds (Step <span data-pointcloud-step-label>1</span>)
             </h4>
             <div class="interactive-pointcloud-placeholder is-hidden" data-pointcloud-placeholder>
               Select an asset above to view point clouds.
@@ -1491,6 +1506,7 @@
           <div class="content has-text-centered">
             <p>
               Website template borrowed from
+              <a href="https://tele-umi-vista.github.io/">VISTA</a>,
               <a href="https://rekep-robot.github.io/">ReKep</a>,
               <a href="https://nerfies.github.io">Nerfies</a>,
               <a href="https://dex-cap.github.io">DexCap</a>, and
